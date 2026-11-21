@@ -4,8 +4,9 @@
 
 本地优先的 AI 绘画提示词引擎。中文意图 → 结构化槽位 → 三档长度的正向提示词 + 五层镜像负向提示词。
 
-> 状态：**M0 完成**。槽位 schema、三档渲染器、五层负向、自洽校验、CLI 已可用。
-> 「中文需求 → 槽位」的模型在 M2/M4 接入，届时 `start.bat` 双击即用。
+> 状态：**M0–M4 完成**。槽位 schema、三档渲染器（含 4 种长档骨架）、五层负向、自洽校验、
+> 规则版批量采样、模型接入（OpenAI 兼容）、Web 端、数据合成与训练管线全部可用。
+> 训练执行需要 GPU（`training/scripts/train.bat`），GGUF 分发在 M5。
 
 ---
 
@@ -69,6 +70,45 @@ olivia-prompt eco
 set PYTHONPATH=src
 python -m olivia_prompt.cli render examples/slots_rooftop.json --tier long
 ```
+
+### 中文需求 → 提示词（M2，接任意 OpenAI 兼容端点）
+
+```bash
+# 环境变量或 ~/.olivia-prompt/config.json 配置端点与模型
+set OLIVIA_BASE_URL=http://127.0.0.1:8081/v1
+set OLIVIA_MODEL=olivia-lite
+
+olivia-prompt ask "赛博朋克雨夜巷子抽烟的银发女" --tier long --show-slots
+# 本地 GGUF：llama-server -m models/olivia-lite-q4_k_m.gguf --port 8081 即可
+```
+
+### Web 端（M3，槽位表可编辑 + 三档并列 + 负向有效性标注）
+
+```bash
+olivia-prompt web --open        # 零依赖 stdlib 服务器，http://127.0.0.1:7860
+```
+
+左栏输入中文需求生成槽位 → 中栏槽位表（user/inferred/default 三色来源标记，
+高影响+默认 标黄）→ 右栏三档并列输出 + 负向有效性徽章 + 自检。
+**改一个槽位只重渲染，不重跑模型。**
+
+### 规则版批量采样（M1，不跑模型）
+
+```bash
+olivia-prompt scenes                          # 60 个结构化场景（场景库 × 材质 × 光时段）
+olivia-prompt sample --n 200 --render --out samples   # 批量出 200 条三档正反向
+olivia-prompt coverage --n 200                # 槽位覆盖矩阵（预训练门禁）
+```
+
+### 训练（M4，需 GPU）
+
+```bash
+training\scripts\train.bat lite       # Qwen3-4B：合成数据 → LLaMA-Factory → GGUF Q4_K_M
+training\scripts\train.bat standard   # Qwen3-8B：Q5_K_M，长档质量更高
+python training/scripts/eval.py --base-url http://127.0.0.1:8081/v1 --model olivia --label lite
+```
+
+详见 [docs/DATA.md](docs/DATA.md)。
 
 ---
 
@@ -144,7 +184,7 @@ olivia-prompt eco
    └─▶ Web：槽位表可编辑 ──▶ 改一个槽 ──▶ 只重渲染，不重跑模型
 ```
 
-M0 只做下半部分（从槽位往下）。上半部分的模型接入是 M2，本地 GGUF 是 M4 —— 拆开做的好处是，**在还没有任何模型的时候就能验证输出质量**。
+上半部分（模型接入）与下半部分（渲染/负向/适配）拆开做的好处是，**在还没有任何模型的时候就能验证输出质量**——M0 的 33 项测试就是那时候写下的；如今 M2 已把上半部分接上，模型只填槽位，其他一切由代码保证。
 
 ---
 
@@ -169,14 +209,22 @@ olivia-prompt check examples/slots_rooftop.json
 ```
 src/olivia_prompt/
   slots.py       槽位注册表（唯一真源）
-  render.py      三档渲染器（确定性，逐字节稳定）
+  render.py      三档渲染器（确定性，逐字节稳定；长档支持骨架变体 A-D）
+  skeletons.py   长档骨架变体 B/C/D（换段序 / 换判词句 / 换 P3 结构）
   negative.py    五层镜像负向 + 生态适配
   validate.py    自洽校验规则
   ecosystem.py   目标生态与负向有效性
+  scenes.py      场景库加载器（data/scenes.json，60 场景）
+  pools.py       人物/服饰/风格池（含中文对照，供数据合成）
+  sample.py      M1 规则版采样器 + 覆盖矩阵
+  llm/           M2 接入层（OpenAI 兼容客户端 / 槽位填充 / 修复循环）
+  webapp/        M3 Web 端（stdlib 服务器 + 无构建 SPA）
   cli.py         命令行
+data/            场景库 + 活动池（结构化的「场景库.txt」）
+training/        M4：数据合成器 / LLaMA-Factory 配置 / 导出 / 评测 / 50 条基准
 examples/        两个完整槽位示例
-tests/           33 项测试
-docs/            方案、schema、负向规范
+tests/           115 项测试
+docs/            方案、schema、负向规范、数据与训练
 ```
 
 ---
@@ -186,10 +234,10 @@ docs/            方案、schema、负向规范
 | 阶段 | 内容 | 状态 |
 |---|---|---|
 | M0 | 槽位 schema + 三档渲染器 + 五层负向 + CLI | ✅ |
-| M1 | 规则版批量采样（场景库 × 槽位），不跑模型 | — |
-| M2 | 接入模型：中文需求 → 槽位 JSON | — |
-| M3 | Web 端（槽位表可编辑、三档并列、负向有效性） | — |
-| M4 | 数据合成 + Lite(4B)/Standard(8B) 训练 + eval | — |
+| M1 | 规则版批量采样（场景库 × 槽位），不跑模型 | ✅ 60 场景 / 覆盖矩阵 / 200 条验收 |
+| M2 | 接入模型：中文需求 → 槽位 JSON（OpenAI 兼容 + 本地 GGUF 同协议） | ✅ 含自洽修复循环 |
+| M3 | Web 端（槽位表可编辑、三档并列、负向有效性） | ✅ 零依赖 stdlib 服务器 |
+| M4 | 数据合成 + Lite(4B)/Standard(8B) 训练 + eval | ✅ 管线就绪；训练执行需 GPU |
 | M5 | `start.bat` 一键分发 / docker / 模型上传 | — |
 
 ---
