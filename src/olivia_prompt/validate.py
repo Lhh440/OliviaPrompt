@@ -19,7 +19,9 @@ from .slots import SlotSet
 
 _SEATED = {"sit", "kneel", "lie", "lean", "crouch"}
 _OUTDOOR_MATERIALS = ("leaf", "leaves", "ivy", "grass", "vine", "foliage", "bark", "branch")
-_INDOOR_MATERIALS = ("paper", "plaster", "tile", "marble", "carpet", "linen", "bookshelf")
+# marble is deliberately absent: marble temples, statues and ruins are the
+# most common *outdoor* stone, so flagging it would fire on honest scenes.
+_INDOOR_MATERIALS = ("paper", "plaster", "tile", "carpet", "linen", "bookshelf")
 
 
 @dataclass(frozen=True)
@@ -86,15 +88,10 @@ def validate(slots: SlotSet) -> List[Issue]:
         ))
 
     # --- multiple subjects ------------------------------------------------
+    # (the renderer now pluralises pronouns/verbs from subject_count itself,
+    #  so a bare "count > 1" is no longer an inconsistency — only the
+    #  single-person visibility directive below still deserves a warning)
     count = str(slots["subject_count"])
-    if count != "1":
-        noun = {"female": "woman", "male": "man", "other": "person"}[str(slots["gender"])]
-        if f"single" in str(slots["expression"]).lower():
-            pass
-        issues.append(Issue(
-            "W_MULTI_SUBJECT", "warn", "subject_count",
-            f"subject_count={count} 但骨架写的是 a single {noun}，长档 P1a 与人数不一致。",
-        ))
     vis = [v for v in (slots.get("visibility") or ()) if v]
     if count != "1" and len(vis) > 1:
         issues.append(Issue(

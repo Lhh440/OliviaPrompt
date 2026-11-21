@@ -300,6 +300,9 @@ class SlotSet:
         ]
 
     def pronoun(self, kind: str = "subj") -> str:
+        plural = str(self._values.get("subject_count")) not in ("1", "0", None)
+        if plural:
+            return {"subj": "they", "obj": "them", "poss": "their"}[kind]
         g = self._values.get("gender")
         if g == "male":
             return {"subj": "he", "obj": "him", "poss": "his"}[kind]

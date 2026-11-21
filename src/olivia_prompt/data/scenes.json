@@ -1,0 +1,3396 @@
+{
+  "version": 1,
+  "source": "用户场景库（60 场景，室内 20 / 自然 15 / 城市 15 / 幻想 20），字段由人工翻译为渲染槽位值",
+  "field_notes": {
+    "props": "P3a 三个前景框景道具",
+    "opening": "P3b 背景开口物，负责纵深",
+    "background": "开口之外的层次",
+    "bg_far": "P3c 细节衰减终点",
+    "materials": "[可磨损, 可见脉络/纹理, 表面] —— 对应 P3c 的 wear / veins / surface 三个句位",
+    "light_time": "句首大写形容词短语，需命中渲染器的时段标签表",
+    "fit_poses": "该场景物理上说得通的姿势族",
+    "perches": "姿势族 -> 承载体候选（渲染为 sits on a {perch} 等）",
+    "light_dirs": "该时段物理上成立的光向"
+  },
+  "scenes": [
+    {
+      "id": "study_dawn",
+      "name_zh": "老式书房晨读",
+      "name_en": "old study at dawn",
+      "group": "indoor_life",
+      "zh_place": "老式书房里",
+      "setting": "old walnut-panelled study",
+      "indoor": true,
+      "props": [
+        "brass desk lamp",
+        "open parchment book",
+        "ceramic inkwell"
+      ],
+      "opening": "arched leaded-glass window",
+      "background": "faded spines of old books",
+      "bg_far": "study shelves",
+      "materials": [
+        "walnut wood",
+        "paper fibers",
+        "brass"
+      ],
+      "light_zh": "清晨侧窗柔光",
+      "light_time": "Soft morning",
+      "light_dirs": [
+        "left",
+        "right",
+        "front"
+      ],
+      "fit_poses": [
+        "sit",
+        "stand",
+        "lean"
+      ],
+      "perches": {
+        "sit": [
+          "high-backed reading chair",
+          "window bench"
+        ],
+        "stand": [
+          "writing desk",
+          "bookshelf ladder"
+        ],
+        "lean": [
+          "carved writing desk",
+          "panelled wall"
+        ]
+      },
+      "ground": "worn parquet",
+      "anchor": "desk",
+      "moods": [
+        "studious, serene",
+        "quiet, absorbed"
+      ]
+    },
+    {
+      "id": "tea_room",
+      "name_zh": "日式茶室午后",
+      "name_en": "japanese tea room in the afternoon",
+      "group": "indoor_life",
+      "zh_place": "日式茶室里",
+      "setting": "tatami-floored tea room",
+      "indoor": true,
+      "props": [
+        "cast-iron kettle",
+        "woven bamboo tray",
+        "rough tea bowl"
+      ],
+      "opening": "half-open shoji screen",
+      "background": "raked gravel of a courtyard garden",
+      "bg_far": "garden wall",
+      "materials": [
+        "tatami rush",
+        "unglazed clay",
+        "darkened iron"
+      ],
+      "light_zh": "午后漫射天光",
+      "light_time": "Diffuse mid-afternoon",
+      "light_dirs": [
+        "front",
+        "left",
+        "right"
+      ],
+      "fit_poses": [
+        "sit",
+        "kneel",
+        "stand"
+      ],
+      "perches": {
+        "sit": [
+          "floor cushion",
+          "low wooden bench"
+        ],
+        "kneel": [
+          "woven rush cushion",
+          "tatami mat"
+        ],
+        "stand": [
+          "sunken hearth",
+          "tea cabinet"
+        ]
+      },
+      "ground": "tatami matting",
+      "anchor": "tea table",
+      "moods": [
+        "still, ceremonial",
+        "warm, unhurried"
+      ]
+    },
+    {
+      "id": "tailor_shop",
+      "name_zh": "复古裁缝工坊",
+      "name_en": "vintage tailor workshop",
+      "group": "indoor_life",
+      "zh_place": "裁缝工坊里",
+      "setting": "vintage tailor's workshop",
+      "indoor": true,
+      "props": [
+        "wooden thread rack",
+        "silver thimble",
+        "coiled measuring tape"
+      ],
+      "opening": "skewed skylight",
+      "background": "dusty bolts of linen cloth",
+      "bg_far": "workshop shelves",
+      "materials": [
+        "aged oak",
+        "linen weave",
+        "polished steel"
+      ],
+      "light_zh": "正午天窗硬光",
+      "light_time": "Hard midday",
+      "light_dirs": [
+        "top",
+        "left",
+        "right"
+      ],
+      "fit_poses": [
+        "sit",
+        "stand",
+        "lean"
+      ],
+      "perches": {
+        "sit": [
+          "sewing stool",
+          "wooden workchair"
+        ],
+        "stand": [
+          "cutting table",
+          "dressmaker's mannequin"
+        ],
+        "lean": [
+          "cutting table",
+          "door frame"
+        ]
+      },
+      "ground": "scuffed floorboards",
+      "anchor": "worktable",
+      "moods": [
+        "focused, craft-warm",
+        "patient, precise"
+      ]
+    },
+    {
+      "id": "nordic_kitchen",
+      "name_zh": "北欧厨房早餐",
+      "name_en": "nordic kitchen breakfast",
+      "group": "indoor_life",
+      "zh_place": "北欧厨房里",
+      "setting": "scandinavian kitchen with pale cabinetry",
+      "indoor": true,
+      "props": [
+        "white porcelain bowl",
+        "wooden honey dipper",
+        "glass milk bottle"
+      ],
+      "opening": "floor-to-ceiling window",
+      "background": "misty pine forest",
+      "bg_far": "treeline",
+      "materials": [
+        "ash wood",
+        "frosted glass",
+        "glazed ceramic"
+      ],
+      "light_zh": "清晨低角度暖光",
+      "light_time": "Warm low morning",
+      "light_dirs": [
+        "left",
+        "right",
+        "front"
+      ],
+      "fit_poses": [
+        "sit",
+        "stand",
+        "lean"
+      ],
+      "perches": {
+        "sit": [
+          "oak breakfast chair",
+          "window bench"
+        ],
+        "stand": [
+          "kitchen island",
+          "sink counter"
+        ],
+        "lean": [
+          "kitchen island",
+          "cupboard edge"
+        ]
+      },
+      "ground": "pale wood floor",
+      "anchor": "counter",
+      "moods": [
+        "fresh, homely",
+        "gentle, bright"
+      ]
+    },
+    {
+      "id": "watch_bench",
+      "name_zh": "古董钟表修复台",
+      "name_en": "antique watchmaker bench",
+      "group": "indoor_life",
+      "zh_place": "钟表修复台前",
+      "setting": "antique watchmaker's bench",
+      "indoor": true,
+      "props": [
+        "brass loupe",
+        "box of gears",
+        "fine tweezers"
+      ],
+      "opening": "slatted venetian blind",
+      "background": "dim shelves of clocks",
+      "bg_far": "clock wall",
+      "materials": [
+        "scratched leather pad",
+        "oxidized copper",
+        "steel"
+      ],
+      "light_zh": "下午条纹状侧光",
+      "light_time": "Striped afternoon",
+      "light_dirs": [
+        "left",
+        "right"
+      ],
+      "fit_poses": [
+        "sit",
+        "lean"
+      ],
+      "perches": {
+        "sit": [
+          "upholstered workchair",
+          "stool at the bench"
+        ],
+        "lean": [
+          "bench edge",
+          "shadowed wall"
+        ]
+      },
+      "ground": "dark hardwood floor",
+      "anchor": "bench",
+      "moods": [
+        "absorbed, meticulous",
+        "hushed, timeless"
+      ]
+    },
+    {
+      "id": "art_studio",
+      "name_zh": "画室写生角落",
+      "name_en": "painting studio corner",
+      "group": "indoor_life",
+      "zh_place": "画室角落里",
+      "setting": "north-lit painting studio",
+      "indoor": true,
+      "props": [
+        "wooden palette",
+        "hog-bristle brushes",
+        "tin paint tubes"
+      ],
+      "opening": "tall north-facing window",
+      "background": "calm grey sky",
+      "bg_far": "rooftops",
+      "materials": [
+        "oak easel wood",
+        "canvas weave",
+        "dried oil paint"
+      ],
+      "light_zh": "全天稳定的北向天光",
+      "light_time": "Steady overcast",
+      "light_dirs": [
+        "front",
+        "top",
+        "left"
+      ],
+      "fit_poses": [
+        "stand",
+        "sit"
+      ],
+      "perches": {
+        "stand": [
+          "wooden easel",
+          "stool by the canvas"
+        ],
+        "sit": [
+          "painter's stool",
+          "window bench"
+        ]
+      },
+      "ground": "bare wood floor",
+      "anchor": "easel",
+      "moods": [
+        "absorbed, painterly",
+        "calm, searching"
+      ]
+    },
+    {
+      "id": "guqin_room",
+      "name_zh": "中式琴房黄昏",
+      "name_en": "chinese qin room at dusk",
+      "group": "indoor_life",
+      "zh_place": "中式琴房里",
+      "setting": "chinese qin room at dusk",
+      "indoor": true,
+      "props": [
+        "celadon incense burner",
+        "silk string scroll",
+        "rosewood qin table"
+      ],
+      "opening": "round moon-gate",
+      "background": "bamboo shadows on a whitewashed wall",
+      "bg_far": "garden bamboo",
+      "materials": [
+        "old paulownia wood",
+        "silk fiber",
+        "celadon glaze"
+      ],
+      "light_zh": "黄昏琥珀色斜阳",
+      "light_time": "Amber dusk",
+      "light_dirs": [
+        "left",
+        "back-left",
+        "front"
+      ],
+      "fit_poses": [
+        "sit",
+        "kneel",
+        "stand"
+      ],
+      "perches": {
+        "sit": [
+          "low qin-table bench",
+          "cushion before the qin"
+        ],
+        "kneel": [
+          "woven cushion",
+          "flat qin mat"
+        ],
+        "stand": [
+          "qin table",
+          "doorway"
+        ]
+      },
+      "ground": "dark polished planks",
+      "anchor": "qin",
+      "moods": [
+        "serene, resonant",
+        "wistful, amber"
+      ]
+    },
+    {
+      "id": "herbarium",
+      "name_zh": "植物标本工作室",
+      "name_en": "plant specimen studio",
+      "group": "indoor_life",
+      "zh_place": "植物标本工作室里",
+      "setting": "plant specimen studio under a glass roof",
+      "indoor": true,
+      "props": [
+        "flower press",
+        "kraft specimen labels",
+        "fine scalpel"
+      ],
+      "opening": "glass greenhouse roof",
+      "background": "greenhouse frame and pale sky",
+      "bg_far": "glass ridge",
+      "materials": [
+        "kraft paper",
+        "dried petals",
+        "brushed steel"
+      ],
+      "light_zh": "正午透光顶棚",
+      "light_time": "Overhead noon",
+      "light_dirs": [
+        "top"
+      ],
+      "fit_poses": [
+        "sit",
+        "stand",
+        "lean"
+      ],
+      "perches": {
+        "sit": [
+          "tall work stool",
+          "bench under the roof"
+        ],
+        "stand": [
+          "specimen bench",
+          "press table"
+        ],
+        "lean": [
+          "workbench",
+          "wooden cabinet"
+        ]
+      },
+      "ground": "stone-tiled floor",
+      "anchor": "bench",
+      "moods": [
+        "precise, botanical",
+        "quiet, papery"
+      ]
+    },
+    {
+      "id": "vinyl_corner",
+      "name_zh": "黑胶唱片聆听角",
+      "name_en": "vinyl listening corner",
+      "group": "indoor_life",
+      "zh_place": "黑胶聆听角里",
+      "setting": "vinyl listening corner",
+      "indoor": true,
+      "props": [
+        "tonearm",
+        "record sleeve",
+        "tube amplifier"
+      ],
+      "opening": "curtain gap",
+      "background": "city lights beyond the glass",
+      "bg_far": "streetlights",
+      "materials": [
+        "walnut cabinet",
+        "vinyl surface",
+        "brushed aluminium"
+      ],
+      "light_zh": "傍晚钨丝灯混合窗光",
+      "light_time": "Tungsten-lit evening",
+      "light_dirs": [
+        "back-right",
+        "left"
+      ],
+      "fit_poses": [
+        "sit",
+        "lean",
+        "crouch"
+      ],
+      "perches": {
+        "sit": [
+          "low lounge chair",
+          "floor cushion by the speaker"
+        ],
+        "lean": [
+          "speaker cabinet",
+          "record shelf"
+        ],
+        "crouch": [
+          "record crate",
+          "low shelf"
+        ]
+      },
+      "ground": "thick carpet",
+      "anchor": "turntable",
+      "moods": [
+        "warm, analog",
+        "dusky, nostalgic"
+      ]
+    },
+    {
+      "id": "leather_shop",
+      "name_zh": "手工皮革作坊",
+      "name_en": "leathercraft workshop",
+      "group": "indoor_life",
+      "zh_place": "皮革作坊里",
+      "setting": "hand leathercraft workshop",
+      "indoor": true,
+      "props": [
+        "diamond chisel set",
+        "waxed thread spool",
+        "edge-paint stick"
+      ],
+      "opening": "half-raised roller shutter",
+      "background": "sunlit alley beyond",
+      "bg_far": "workshop yard",
+      "materials": [
+        "vegetable-tanned leather",
+        "canvas weave",
+        "forged steel"
+      ],
+      "light_zh": "上午车间漫射光",
+      "light_time": "Diffuse morning",
+      "light_dirs": [
+        "front",
+        "left",
+        "right"
+      ],
+      "fit_poses": [
+        "sit",
+        "stand",
+        "lean"
+      ],
+      "perches": {
+        "sit": [
+          "saddler's stool",
+          "low workbench"
+        ],
+        "stand": [
+          "stitching pony",
+          "cutting table"
+        ],
+        "lean": [
+          "workbench",
+          "tool wall"
+        ]
+      },
+      "ground": "concrete floor",
+      "anchor": "bench",
+      "moods": [
+        "hands-on, grounded",
+        "patient, tactile"
+      ]
+    },
+    {
+      "id": "moss_forest",
+      "name_zh": "苔藓森林溪畔",
+      "name_en": "mossy forest stream",
+      "group": "nature",
+      "zh_place": "苔藓森林溪畔",
+      "setting": "mossy forest stream bank",
+      "indoor": false,
+      "props": [
+        "fern fronds",
+        "wet river stones",
+        "fallen log"
+      ],
+      "opening": "gap in the forest canopy",
+      "background": "tiered green understory",
+      "bg_far": "ridgeline",
+      "materials": [
+        "sodden moss",
+        "flowing water",
+        "rotting wood"
+      ],
+      "light_zh": "清晨丁达尔光束",
+      "light_time": "Misty morning",
+      "light_dirs": [
+        "top",
+        "back-left",
+        "back-right"
+      ],
+      "fit_poses": [
+        "crouch",
+        "kneel",
+        "stand",
+        "walk"
+      ],
+      "perches": {
+        "crouch": [
+          "mossy stone",
+          "stream bank"
+        ],
+        "kneel": [
+          "soft moss bed",
+          "flat rock"
+        ],
+        "stand": [
+          "stream bank",
+          "root terrace"
+        ],
+        "walk": [
+          "narrow deer trail",
+          "shallow gravel bar"
+        ]
+      },
+      "ground": "wet moss and stone",
+      "anchor": "stream",
+      "moods": [
+        "hushed, primeval",
+        "fresh, green"
+      ]
+    },
+    {
+      "id": "desert_oasis",
+      "name_zh": "沙漠绿洲正午",
+      "name_en": "desert oasis at noon",
+      "group": "nature",
+      "zh_place": "沙漠绿洲里",
+      "setting": "desert oasis at high noon",
+      "indoor": false,
+      "props": [
+        "palm fronds",
+        "broken pottery shards",
+        "wind-rippled sand"
+      ],
+      "opening": "heat-hazed line of far mountains",
+      "background": "shimmering dune sea",
+      "bg_far": "horizon",
+      "materials": [
+        "cracked clay",
+        "quartz sand",
+        "dry palm fiber"
+      ],
+      "light_zh": "正午垂直强光",
+      "light_time": "Harsh vertical noon",
+      "light_dirs": [
+        "top"
+      ],
+      "fit_poses": [
+        "sit",
+        "crouch",
+        "stand",
+        "walk"
+      ],
+      "perches": {
+        "sit": [
+          "sun-warmed boulder",
+          "low mud wall"
+        ],
+        "crouch": [
+          "shaded palm base",
+          "sand hollow"
+        ],
+        "stand": [
+          "watering trough",
+          "palm shade"
+        ],
+        "walk": [
+          "hard-packed sand path",
+          "palm row"
+        ]
+      },
+      "ground": "rippled sand",
+      "anchor": "pool",
+      "moods": [
+        "blazing, still",
+        "parched, luminous"
+      ]
+    },
+    {
+      "id": "snow_camp",
+      "name_zh": "雪山营地黎明",
+      "name_en": "alpine camp before dawn",
+      "group": "nature",
+      "zh_place": "雪山营地里",
+      "setting": "high alpine camp before dawn",
+      "indoor": false,
+      "props": [
+        "frost-covered tent guyline",
+        "titanium mug",
+        "leaning trekking pole"
+      ],
+      "opening": "notch between snow peaks",
+      "background": "layered ridgelines",
+      "bg_far": "far summits",
+      "materials": [
+        "nylon tent cloth",
+        "condensing metal",
+        "compressed snow"
+      ],
+      "light_zh": "日出前蓝调时刻",
+      "light_time": "Pre-dawn blue hour",
+      "light_dirs": [
+        "back-left",
+        "back-right",
+        "front"
+      ],
+      "fit_poses": [
+        "crouch",
+        "stand",
+        "sit"
+      ],
+      "perches": {
+        "crouch": [
+          "pack crate",
+          "camp stool"
+        ],
+        "stand": [
+          "campfire spot",
+          "tent mouth"
+        ],
+        "sit": [
+          "folding camp stool",
+          "sleeping pad"
+        ]
+      },
+      "ground": "packed snow",
+      "anchor": "tent",
+      "moods": [
+        "crisp, expectant",
+        "cold, blue-silver"
+      ]
+    },
+    {
+      "id": "sea_cliff",
+      "name_zh": "海边悬崖日落",
+      "name_en": "sea cliff at sunset",
+      "group": "nature",
+      "zh_place": "海边悬崖上",
+      "setting": "grassy sea cliff at sunset",
+      "indoor": false,
+      "props": [
+        "salt-etched driftwood",
+        "pile of shells",
+        "wind-bent grasses"
+      ],
+      "opening": "notch of open sea horizon",
+      "background": "burning sunset over the ocean",
+      "bg_far": "sea horizon",
+      "materials": [
+        "weathered driftwood",
+        "wet reef rock",
+        "salt crystals"
+      ],
+      "light_zh": "黄金时刻逆光",
+      "light_time": "Golden hour",
+      "light_dirs": [
+        "back-left",
+        "back-right"
+      ],
+      "fit_poses": [
+        "stand",
+        "sit",
+        "walk",
+        "lean"
+      ],
+      "perches": {
+        "stand": [
+          "cliff-edge path",
+          "rock outcrop"
+        ],
+        "sit": [
+          "sun-warmed rock",
+          "folded blanket"
+        ],
+        "walk": [
+          "coastal footpath",
+          "clifftop grass"
+        ],
+        "lean": [
+          "standing stone",
+          "fence post"
+        ]
+      },
+      "ground": "dry coastal grass",
+      "anchor": "cliff",
+      "moods": [
+        "vast, golden",
+        "open, warm"
+      ]
+    },
+    {
+      "id": "bamboo_path",
+      "name_zh": "雨后竹林小径",
+      "name_en": "bamboo path after rain",
+      "group": "nature",
+      "zh_place": "雨后竹林小径上",
+      "setting": "rain-washed bamboo path",
+      "indoor": false,
+      "props": [
+        "dripping bamboo leaves",
+        "muddy footprints",
+        "snapped bamboo shoot"
+      ],
+      "opening": "cleft of sky between culms",
+      "background": "rushing green culm walls",
+      "bg_far": "hillside",
+      "materials": [
+        "wet bamboo",
+        "splashed stone slab",
+        "clear water beads"
+      ],
+      "light_zh": "雨后阴天散射光",
+      "light_time": "Grey overcast",
+      "light_dirs": [
+        "top",
+        "front"
+      ],
+      "fit_poses": [
+        "walk",
+        "stand",
+        "crouch"
+      ],
+      "perches": {
+        "walk": [
+          "stone-stepped path",
+          "bamboo corridor"
+        ],
+        "stand": [
+          "mossy boulder",
+          "path fork"
+        ],
+        "crouch": [
+          "broken shoot",
+          "puddle edge"
+        ]
+      },
+      "ground": "mud-splashed stone steps",
+      "anchor": "path",
+      "moods": [
+        "cool, rinsed",
+        "green, dripping"
+      ]
+    },
+    {
+      "id": "ginkgo_avenue",
+      "name_zh": "秋日银杏大道",
+      "name_en": "ginkgo avenue in autumn",
+      "group": "nature",
+      "zh_place": "银杏大道上",
+      "setting": "ginkgo avenue in deep autumn",
+      "indoor": false,
+      "props": [
+        "crunchy leaf piles",
+        "cast-iron bench arm",
+        "bicycle wheel"
+      ],
+      "opening": "vanishing point of the tree row",
+      "background": "golden canopy over the street",
+      "bg_far": "street end",
+      "materials": [
+        "crisp fallen leaves",
+        "cast-iron rust",
+        "worn rubber"
+      ],
+      "light_zh": "午后斑驳树影光",
+      "light_time": "Dappled afternoon",
+      "light_dirs": [
+        "left",
+        "right",
+        "top"
+      ],
+      "fit_poses": [
+        "sit",
+        "stand",
+        "walk",
+        "lean"
+      ],
+      "perches": {
+        "sit": [
+          "cast-iron park bench",
+          "low stone wall"
+        ],
+        "stand": [
+          "leaf drift",
+          "lamp post"
+        ],
+        "walk": [
+          "leaf-strewn pavement",
+          "tree-lined avenue"
+        ],
+        "lean": [
+          "lamp post",
+          "bench back"
+        ]
+      },
+      "ground": "carpet of fallen leaves",
+      "anchor": "bench",
+      "moods": [
+        "golden, nostalgic",
+        "crisp, mellow"
+      ]
+    },
+    {
+      "id": "alpine_meadow",
+      "name_zh": "高山草甸花期",
+      "name_en": "alpine meadow in bloom",
+      "group": "nature",
+      "zh_place": "高山草甸上",
+      "setting": "alpine meadow in full bloom",
+      "indoor": false,
+      "props": [
+        "wildflower bunch",
+        "dew-strung spider web",
+        "weathered rock scree"
+      ],
+      "opening": "light shaft through parting clouds",
+      "background": "blue ridges under moving cloud",
+      "bg_far": "far ridge",
+      "materials": [
+        "velvet petals",
+        "wet silk thread",
+        "weathered rock"
+      ],
+      "light_zh": "上午侧逆光",
+      "light_time": "Backlit morning",
+      "light_dirs": [
+        "back-left",
+        "back-right",
+        "left"
+      ],
+      "fit_poses": [
+        "sit",
+        "crouch",
+        "stand",
+        "walk"
+      ],
+      "perches": {
+        "sit": [
+          "flat boulder",
+          "grass tussock"
+        ],
+        "crouch": [
+          "flower patch",
+          "web-strung grass"
+        ],
+        "stand": [
+          "meadow trail",
+          "rock ledge"
+        ],
+        "walk": [
+          "wander path",
+          "butterfly trail"
+        ]
+      },
+      "ground": "springy alpine grass",
+      "anchor": "meadow",
+      "moods": [
+        "airy, blooming",
+        "bright, wind-washed"
+      ]
+    },
+    {
+      "id": "winter_pond",
+      "name_zh": "冬季枯荷塘",
+      "name_en": "frozen lotus pond in winter",
+      "group": "nature",
+      "zh_place": "冬季荷塘边",
+      "setting": "frozen lotus pond in winter",
+      "indoor": false,
+      "props": [
+        "snapped lotus stems",
+        "ice-crack patterns",
+        "dried seed pods"
+      ],
+      "opening": "mist-blurred far bank trees",
+      "background": "pale fog over grey water",
+      "bg_far": "far shore",
+      "materials": [
+        "brittle plant fiber",
+        "thin ice sheet",
+        "silty mud"
+      ],
+      "light_zh": "冬日苍白平光",
+      "light_time": "Pale winter",
+      "light_dirs": [
+        "front",
+        "left",
+        "right"
+      ],
+      "fit_poses": [
+        "stand",
+        "crouch",
+        "walk"
+      ],
+      "perches": {
+        "stand": [
+          "pond-edge plank walk",
+          "bare willow"
+        ],
+        "crouch": [
+          "ice edge",
+          "withered reeds"
+        ],
+        "walk": [
+          "narrow boardwalk",
+          "frosted bank"
+        ]
+      },
+      "ground": "frost-crusted mud",
+      "anchor": "pond",
+      "moods": [
+        "hushed, ashen",
+        "still, cold"
+      ]
+    },
+    {
+      "id": "rainforest_falls",
+      "name_zh": "热带雨林瀑布",
+      "name_en": "rainforest waterfall",
+      "group": "nature",
+      "zh_place": "热带雨林瀑布边",
+      "setting": "tropical rainforest waterfall",
+      "indoor": false,
+      "props": [
+        "aerial root vines",
+        "moss-slick wet stones",
+        "fern clusters"
+      ],
+      "opening": "shaft of sky above the falls",
+      "background": "white falling water",
+      "bg_far": "canopy",
+      "materials": [
+        "dripping leaves",
+        "slick rock wall",
+        "flying spray"
+      ],
+      "light_zh": "正午穿透林冠光",
+      "light_time": "Dappled noon",
+      "light_dirs": [
+        "top",
+        "back-right"
+      ],
+      "fit_poses": [
+        "stand",
+        "crouch",
+        "walk"
+      ],
+      "perches": {
+        "stand": [
+          "wet boulder",
+          "vine curtain"
+        ],
+        "crouch": [
+          "splash pool edge",
+          "mossy log"
+        ],
+        "walk": [
+          "rocks beside the falls",
+          "fern tunnel"
+        ]
+      },
+      "ground": "slick wet stone",
+      "anchor": "falls",
+      "moods": [
+        "lush, thundering",
+        "green, misted"
+      ]
+    },
+    {
+      "id": "shrine_sakura",
+      "name_zh": "春樱神社参道",
+      "name_en": "cherry blossom shrine approach",
+      "group": "nature",
+      "zh_place": "春樱神社参道上",
+      "setting": "cherry-blossom shrine approach",
+      "indoor": false,
+      "props": [
+        "stone lantern",
+        "petal-strewn puddle",
+        "torii base"
+      ],
+      "opening": "sky through cherry branches",
+      "background": "pink canopy over wet stone",
+      "bg_far": "stone steps",
+      "materials": [
+        "mossy granite",
+        "wet paving stone",
+        "translucent petals"
+      ],
+      "light_zh": "清晨柔和粉调光",
+      "light_time": "Soft pink morning",
+      "light_dirs": [
+        "left",
+        "right",
+        "front"
+      ],
+      "fit_poses": [
+        "walk",
+        "stand",
+        "sit",
+        "crouch"
+      ],
+      "perches": {
+        "walk": [
+          "stone-paved approach",
+          "lantern row"
+        ],
+        "stand": [
+          "torii gate",
+          "stone lantern"
+        ],
+        "sit": [
+          "temple steps",
+          "stone bench"
+        ],
+        "crouch": [
+          "petal puddle",
+          "lantern base"
+        ]
+      },
+      "ground": "wet stone paving",
+      "anchor": "torii",
+      "moods": [
+        "tender, fleeting",
+        "pink, serene"
+      ]
+    },
+    {
+      "id": "abandoned_platform",
+      "name_zh": "废弃火车站台",
+      "name_en": "abandoned railway platform",
+      "group": "urban",
+      "zh_place": "废弃火车站台上",
+      "setting": "abandoned railway platform",
+      "indoor": false,
+      "props": [
+        "rusted signal lamp",
+        "shattered glass",
+        "railway sleepers"
+      ],
+      "opening": "broken hole in the vaulted roof",
+      "background": "dust-lit concourse",
+      "bg_far": "dark tunnel mouth",
+      "materials": [
+        "peeling enamel sign",
+        "oxidized steel rail",
+        "mouldering concrete"
+      ],
+      "light_zh": "午后体积光束",
+      "light_time": "Dusty afternoon",
+      "light_dirs": [
+        "top",
+        "left"
+      ],
+      "fit_poses": [
+        "stand",
+        "walk",
+        "sit",
+        "crouch"
+      ],
+      "perches": {
+        "stand": [
+          "platform edge",
+          "old bench"
+        ],
+        "walk": [
+          "platform to the tunnel",
+          "railside"
+        ],
+        "sit": [
+          "splintered bench",
+          "luggage trolley"
+        ],
+        "crouch": [
+          "sleeper stack",
+          "rubble pile"
+        ]
+      },
+      "ground": "weed-cracked concrete",
+      "anchor": "platform",
+      "moods": [
+        "forsaken, grand",
+        "still, shaft-lit"
+      ]
+    },
+    {
+      "id": "neon_alley",
+      "name_zh": "霓虹巷弄雨夜",
+      "name_en": "neon alley on a rainy night",
+      "group": "urban",
+      "zh_place": "霓虹雨夜的巷子里",
+      "setting": "rain-soaked neon alley at night",
+      "indoor": false,
+      "props": [
+        "puddle reflections",
+        "plastic signage",
+        "tangled utility pole"
+      ],
+      "opening": "headlights at the alley mouth",
+      "background": "stacked neon signs",
+      "bg_far": "wet skyline",
+      "materials": [
+        "wet asphalt",
+        "reflective acrylic",
+        "rusted sheet metal"
+      ],
+      "light_zh": "夜间人工光源混合",
+      "light_time": "Neon-lit night",
+      "light_dirs": [
+        "back-right",
+        "back-left",
+        "left"
+      ],
+      "fit_poses": [
+        "stand",
+        "lean",
+        "crouch",
+        "walk"
+      ],
+      "perches": {
+        "stand": [
+          "alley mouth",
+          "vending machine"
+        ],
+        "lean": [
+          "wet brick wall",
+          "shuttered shopfront"
+        ],
+        "crouch": [
+          "puddle edge",
+          "pipe cluster"
+        ],
+        "walk": [
+          "narrow alley",
+          "arcade gap"
+        ]
+      },
+      "ground": "glossy wet asphalt",
+      "anchor": "alley",
+      "moods": [
+        "electric, lonely",
+        "neon, rain-cold"
+      ]
+    },
+    {
+      "id": "old_factory_loft",
+      "name_zh": "老厂房改造空间",
+      "name_en": "converted factory hall",
+      "group": "urban",
+      "zh_place": "老厂房空间里",
+      "setting": "converted old factory hall",
+      "indoor": true,
+      "props": [
+        "old pulley block",
+        "concrete column",
+        "steel stair"
+      ],
+      "opening": "sawtooth roof skylights",
+      "background": "high trusses in dust-light",
+      "bg_far": "hall end",
+      "materials": [
+        "exposed red brick",
+        "polished concrete",
+        "wrought iron"
+      ],
+      "light_zh": "上午天窗定向光",
+      "light_time": "Angled morning",
+      "light_dirs": [
+        "top",
+        "left"
+      ],
+      "fit_poses": [
+        "stand",
+        "sit",
+        "lean",
+        "walk"
+      ],
+      "perches": {
+        "stand": [
+          "steel stair",
+          "column base"
+        ],
+        "sit": [
+          "mid-century lounge chair",
+          "crate stool"
+        ],
+        "lean": [
+          "concrete column",
+          "brick wall"
+        ],
+        "walk": [
+          "open hall floor",
+          "mezzanine run"
+        ]
+      },
+      "ground": "polished concrete",
+      "anchor": "hall",
+      "moods": [
+        "raw, spacious",
+        "industrial, calm"
+      ]
+    },
+    {
+      "id": "container_dock",
+      "name_zh": "码头集装箱区",
+      "name_en": "container terminal at dusk",
+      "group": "urban",
+      "zh_place": "码头集装箱区",
+      "setting": "container terminal at dusk",
+      "indoor": false,
+      "props": [
+        "mooring bollard",
+        "open paint drums",
+        "forklift tyre tracks"
+      ],
+      "opening": "gap between gantry cranes",
+      "background": "sea and sky beyond the quay",
+      "bg_far": "open sea",
+      "materials": [
+        "salt-etched corrugated steel",
+        "oil-stained ground",
+        "frayed hemp rope"
+      ],
+      "light_zh": "黄昏低角度金光",
+      "light_time": "Low golden hour",
+      "light_dirs": [
+        "back-left",
+        "back-right",
+        "left"
+      ],
+      "fit_poses": [
+        "stand",
+        "sit",
+        "walk",
+        "lean"
+      ],
+      "perches": {
+        "stand": [
+          "bollard",
+          "container wall"
+        ],
+        "sit": [
+          "coil of rope",
+          "crate stack"
+        ],
+        "walk": [
+          "quay apron",
+          "container lane"
+        ],
+        "lean": [
+          "container corner",
+          "steel railing"
+        ]
+      },
+      "ground": "oil-stained concrete",
+      "anchor": "quay",
+      "moods": [
+        "rust-orange, vast",
+        "working, salt-heavy"
+      ]
+    },
+    {
+      "id": "underpass_wall",
+      "name_zh": "地下通道涂鸦墙",
+      "name_en": "graffitied underpass",
+      "group": "urban",
+      "zh_place": "地下通道里",
+      "setting": "graffitied underpass walkway",
+      "indoor": true,
+      "props": [
+        "spray cans",
+        "mirror-flat puddle",
+        "grouted tile seams"
+      ],
+      "opening": "bright stairway exit",
+      "background": "long tunnel of painted walls",
+      "bg_far": "underpass end",
+      "materials": [
+        "peeling glazed tile",
+        "layered acrylic paint",
+        "damp concrete"
+      ],
+      "light_zh": "日间入口渐变光",
+      "light_time": "Pale daytime",
+      "light_dirs": [
+        "back-right",
+        "front"
+      ],
+      "fit_poses": [
+        "stand",
+        "crouch",
+        "walk",
+        "lean"
+      ],
+      "perches": {
+        "stand": [
+          "tunnel wall",
+          "switch box"
+        ],
+        "crouch": [
+          "puddle edge",
+          "spray crates"
+        ],
+        "walk": [
+          "tiled corridor",
+          "exit ramp"
+        ],
+        "lean": [
+          "tiled wall",
+          "steel handrail"
+        ]
+      },
+      "ground": "damp tiled floor",
+      "anchor": "wall",
+      "moods": [
+        "gritty, chromatic",
+        "hollow, echoing"
+      ]
+    },
+    {
+      "id": "barber_shop",
+      "name_zh": "老式理发店",
+      "name_en": "old-school barbershop",
+      "group": "urban",
+      "zh_place": "老式理发店里",
+      "setting": "old-school barbershop",
+      "indoor": true,
+      "props": [
+        "spinning barber pole",
+        "strop and razor",
+        "enamel wash basin"
+      ],
+      "opening": "street-facing display window",
+      "background": "passing street life",
+      "bg_far": "street corner",
+      "materials": [
+        "polished chrome",
+        "cracked leatherette",
+        "mosaic floor tile"
+      ],
+      "light_zh": "下午橱窗反射光",
+      "light_time": "Reflected afternoon",
+      "light_dirs": [
+        "front",
+        "left"
+      ],
+      "fit_poses": [
+        "sit",
+        "stand",
+        "lean"
+      ],
+      "perches": {
+        "sit": [
+          "leather barber chair",
+          "wooden waiting bench"
+        ],
+        "stand": [
+          "mirror station",
+          "towel cabinet"
+        ],
+        "lean": [
+          "door frame",
+          "counter"
+        ]
+      },
+      "ground": "mosaic tiled floor",
+      "anchor": "chair",
+      "moods": [
+        "vintage, tidy",
+        "warm, reflective"
+      ]
+    },
+    {
+      "id": "print_shop",
+      "name_zh": "印刷厂排版台",
+      "name_en": "letterpress print shop",
+      "group": "urban",
+      "zh_place": "印刷厂排版台前",
+      "setting": "letterpress print shop bench",
+      "indoor": true,
+      "props": [
+        "lead type tray",
+        "ink roller",
+        "proof sheets"
+      ],
+      "opening": "gridded high side window",
+      "background": "rows of casing drawers",
+      "bg_far": "shop interior",
+      "materials": [
+        "ink-stained wood",
+        "metal type",
+        "absorbent paper"
+      ],
+      "light_zh": "上午侧窗硬光",
+      "light_time": "Hard morning",
+      "light_dirs": [
+        "left",
+        "right"
+      ],
+      "fit_poses": [
+        "sit",
+        "stand",
+        "lean"
+      ],
+      "perches": {
+        "sit": [
+          "printer's stool",
+          "wooden chair"
+        ],
+        "stand": [
+          "composing stone",
+          "type cabinet"
+        ],
+        "lean": [
+          "composing stone",
+          "casing frame"
+        ]
+      },
+      "ground": "ink-dusted floorboards",
+      "anchor": "bench",
+      "moods": [
+        "ink-black, ordered",
+        "craft-heavy, dim"
+      ]
+    },
+    {
+      "id": "rooftop_loft",
+      "name_zh": "天台鸽舍黄昏",
+      "name_en": "rooftop pigeon loft at dusk",
+      "group": "urban",
+      "zh_place": "天台鸽舍旁",
+      "setting": "rooftop pigeon loft at dusk",
+      "indoor": false,
+      "props": [
+        "galvanized feed trough",
+        "loose feathers",
+        "wire cage mesh"
+      ],
+      "opening": "city skyline silhouette",
+      "background": "warm orange rooftop expanse",
+      "bg_far": "city skyline",
+      "materials": [
+        "galvanized wire",
+        "weathered batten",
+        "whitewashed wall"
+      ],
+      "light_zh": "日落暖橙轮廓光",
+      "light_time": "Sunset orange",
+      "light_dirs": [
+        "back-left",
+        "back-right",
+        "front"
+      ],
+      "fit_poses": [
+        "crouch",
+        "sit",
+        "stand",
+        "walk"
+      ],
+      "perches": {
+        "crouch": [
+          "loft floor",
+          "feather drift"
+        ],
+        "sit": [
+          "upturned crate",
+          "loft ledge"
+        ],
+        "stand": [
+          "loft door",
+          "water dish"
+        ],
+        "walk": [
+          "rooftop apron",
+          "pigeon run"
+        ]
+      },
+      "ground": "gritty rooftop felt",
+      "anchor": "loft",
+      "moods": [
+        "dusk-orange, free",
+        "wind-warm, homing"
+      ]
+    },
+    {
+      "id": "book_cellar",
+      "name_zh": "旧书店地下室",
+      "name_en": "second-hand bookshop cellar",
+      "group": "urban",
+      "zh_place": "旧书店地下室里",
+      "setting": "second-hand bookshop cellar",
+      "indoor": true,
+      "props": [
+        "tower of old books",
+        "kerosene lamp",
+        "rolling ladder"
+      ],
+      "opening": "ventilation shaft glow",
+      "background": "shelf walls rising into dark",
+      "bg_far": "cellar dark",
+      "materials": [
+        "yellowed paper",
+        "dusty shelves",
+        "brass lamp base"
+      ],
+      "light_zh": "全人工光源模拟自然感",
+      "light_time": "Lamplit night",
+      "light_dirs": [
+        "front",
+        "top"
+      ],
+      "fit_poses": [
+        "stand",
+        "sit",
+        "crouch",
+        "lean"
+      ],
+      "perches": {
+        "stand": [
+          "stack aisle",
+          "ladder base"
+        ],
+        "sit": [
+          "book-pile seat",
+          "small stool"
+        ],
+        "crouch": [
+          "low shelf gap",
+          "book drift"
+        ],
+        "lean": [
+          "shelf wall",
+          "ladder rail"
+        ]
+      },
+      "ground": "creaking wood boards",
+      "anchor": "aisle",
+      "moods": [
+        "amber, buried",
+        "papery, hushed"
+      ]
+    },
+    {
+      "id": "bridge_deck",
+      "name_zh": "桥梁检修平台",
+      "name_en": "bridge maintenance gantry",
+      "group": "urban",
+      "zh_place": "桥梁检修平台上",
+      "setting": "bridge maintenance gantry",
+      "indoor": false,
+      "props": [
+        "bolt crate",
+        "safety rope",
+        "rivet hammer"
+      ],
+      "opening": "steel truss gaps over the river",
+      "background": "river glinting below",
+      "bg_far": "far bridge span",
+      "materials": [
+        "painted steel",
+        "worn nylon weave",
+        "riveted plate"
+      ],
+      "light_zh": "正午金属反光强光",
+      "light_time": "Glaring noon",
+      "light_dirs": [
+        "top",
+        "left",
+        "right"
+      ],
+      "fit_poses": [
+        "stand",
+        "crouch",
+        "walk"
+      ],
+      "perches": {
+        "stand": [
+          "gantry platform",
+          "truss chord"
+        ],
+        "crouch": [
+          "bolt crate",
+          "girder top"
+        ],
+        "walk": [
+          "narrow catwalk",
+          "maintenance plank"
+        ]
+      },
+      "ground": "grated steel walkway",
+      "anchor": "truss",
+      "moods": [
+        "high, industrial",
+        "bright, exposed"
+      ]
+    },
+    {
+      "id": "alchemy_lab",
+      "name_zh": "炼金术士实验室",
+      "name_en": "alchemist laboratory",
+      "group": "fantasy",
+      "zh_place": "炼金实验室里",
+      "setting": "alchemist's laboratory",
+      "indoor": true,
+      "props": [
+        "glass retort",
+        "star-chart scroll",
+        "blackened crucible"
+      ],
+      "opening": "gothic arched window",
+      "background": "moonlit study towers",
+      "bg_far": "night sky",
+      "materials": [
+        "blown glass",
+        "scorched parchment",
+        "verdigris copper"
+      ],
+      "light_zh": "夜间冷月混合炉火光",
+      "light_time": "Candlelit night",
+      "light_dirs": [
+        "left",
+        "back-left",
+        "front"
+      ],
+      "fit_poses": [
+        "stand",
+        "sit",
+        "lean",
+        "crouch"
+      ],
+      "perches": {
+        "stand": [
+          "workbench",
+          "apparatus table"
+        ],
+        "sit": [
+          "three-legged stool",
+          "high-backed chair"
+        ],
+        "lean": [
+          "stone bench",
+          "shelf wall"
+        ],
+        "crouch": [
+          "hearth coals",
+          "lower cabinet"
+        ]
+      },
+      "ground": "flagstoned floor",
+      "anchor": "bench",
+      "moods": [
+        "arcane, warm-dark",
+        "bubbling, secretive"
+      ]
+    },
+    {
+      "id": "floating_isle",
+      "name_zh": "悬浮岛屿遗迹",
+      "name_en": "ruins on a floating isle",
+      "group": "fantasy",
+      "zh_place": "悬浮岛屿遗迹上",
+      "setting": "ruins on a floating island",
+      "indoor": false,
+      "props": [
+        "broken marble column",
+        "glowing moss",
+        "rusted chain"
+      ],
+      "opening": "fall to the cloud sea below",
+      "background": "drifting cloud ocean",
+      "bg_far": "cloud banks",
+      "materials": [
+        "wind-eroded marble",
+        "bioluminescent moss",
+        "crystallized rust"
+      ],
+      "light_zh": "高空无遮挡日光",
+      "light_time": "Unclouded noon",
+      "light_dirs": [
+        "top",
+        "left",
+        "right"
+      ],
+      "fit_poses": [
+        "stand",
+        "walk",
+        "sit",
+        "crouch"
+      ],
+      "perches": {
+        "stand": [
+          "column stump",
+          "isle edge"
+        ],
+        "walk": [
+          "cracked processional way",
+          "ruin terrace"
+        ],
+        "sit": [
+          "fallen capital",
+          "mossy ledge"
+        ],
+        "crouch": [
+          "glowing moss bed",
+          "chain heap"
+        ]
+      },
+      "ground": "marble rubble",
+      "anchor": "ruin",
+      "moods": [
+        "awe-struck, airy",
+        "lost, luminous"
+      ]
+    },
+    {
+      "id": "deep_temple",
+      "name_zh": "深海神殿入口",
+      "name_en": "sunken temple entrance",
+      "group": "fantasy",
+      "zh_place": "深海神殿入口",
+      "setting": "sunken temple entrance",
+      "indoor": false,
+      "props": [
+        "coral-grown anchor",
+        "string of bubbles",
+        "shell altar"
+      ],
+      "opening": "blue light column from the surface",
+      "background": "vast dim water",
+      "bg_far": "abyss",
+      "materials": [
+        "calcified rock",
+        "translucent jellyfish",
+        "salt-eaten bronze"
+      ],
+      "light_zh": "水下散射蓝绿光",
+      "light_time": "Diffuse underwater",
+      "light_dirs": [
+        "top"
+      ],
+      "fit_poses": [
+        "stand",
+        "crouch",
+        "walk",
+        "lean"
+      ],
+      "perches": {
+        "stand": [
+          "temple steps",
+          "altar dais"
+        ],
+        "crouch": [
+          "coral shelf",
+          "fallen column"
+        ],
+        "walk": [
+          "processional causeway",
+          "ruin floor"
+        ],
+        "lean": [
+          "altar block",
+          "carved wall"
+        ]
+      },
+      "ground": "silted stone",
+      "anchor": "altar",
+      "moods": [
+        "hushed, sacred",
+        "abyssal, glimmering"
+      ]
+    },
+    {
+      "id": "steampunk_gondola",
+      "name_zh": "蒸汽朋克飞艇舱",
+      "name_en": "steampunk airship gondola",
+      "group": "fantasy",
+      "zh_place": "蒸汽朋克飞艇舱里",
+      "setting": "steampunk airship gondola",
+      "indoor": true,
+      "props": [
+        "brass pressure gauge",
+        "copper valve wheel",
+        "leather chart"
+      ],
+      "opening": "round porthole",
+      "background": "billowing cloud deck",
+      "bg_far": "cloud field",
+      "materials": [
+        "polished brass",
+        "riveted steel plate",
+        "oil-stained canvas"
+      ],
+      "light_zh": "高空日光混合仪表背光",
+      "light_time": "Bright high-altitude",
+      "light_dirs": [
+        "front",
+        "left",
+        "right"
+      ],
+      "fit_poses": [
+        "stand",
+        "sit",
+        "lean"
+      ],
+      "perches": {
+        "stand": [
+          "helm station",
+          "chart table"
+        ],
+        "sit": [
+          "captain's chair",
+          "bench seat"
+        ],
+        "lean": [
+          "gauge console",
+          "bulkhead"
+        ]
+      },
+      "ground": "riveted deck plates",
+      "anchor": "console",
+      "moods": [
+        "brass-warm, rushing",
+        "adventurous, clanked"
+      ]
+    },
+    {
+      "id": "elf_study",
+      "name_zh": "精灵树屋书房",
+      "name_en": "elven treehouse study",
+      "group": "fantasy",
+      "zh_place": "精灵树屋里",
+      "setting": "elven treehouse study",
+      "indoor": true,
+      "props": [
+        "resin lamp",
+        "vine bookmark",
+        "seed jars"
+      ],
+      "opening": "living branches with starlight",
+      "background": "deep night forest canopy",
+      "bg_far": "star field",
+      "materials": [
+        "living wood grain",
+        "translucent resin",
+        "dried seed husks"
+      ],
+      "light_zh": "夜间生物光混合星光",
+      "light_time": "Bioluminescent night",
+      "light_dirs": [
+        "back-left",
+        "top"
+      ],
+      "fit_poses": [
+        "sit",
+        "stand",
+        "lean"
+      ],
+      "perches": {
+        "sit": [
+          "curved branch chair",
+          "window nook"
+        ],
+        "stand": [
+          "reading platform",
+          "root desk"
+        ],
+        "lean": [
+          "tree trunk wall",
+          "book niche"
+        ]
+      },
+      "ground": "polished living wood",
+      "anchor": "nook",
+      "moods": [
+        "glow-green, enchanted",
+        "star-sprinkled, calm"
+      ]
+    },
+    {
+      "id": "cyber_noodles",
+      "name_zh": "赛博朋克面摊",
+      "name_en": "cyberpunk noodle stall",
+      "group": "fantasy",
+      "zh_place": "赛博朋克面摊前",
+      "setting": "cyberpunk noodle stall",
+      "indoor": true,
+      "props": [
+        "holographic menu",
+        "synthetic ingredient trays",
+        "chrome serving arm"
+      ],
+      "opening": "steam-fogged stall gap",
+      "background": "rain-soaked neon signage",
+      "bg_far": "megacity glow",
+      "materials": [
+        "oil-shedding stainless steel",
+        "glowing polymer sheet",
+        "wet composite counter"
+      ],
+      "light_zh": "夜间多色人工光源",
+      "light_time": "Multicolored neon night",
+      "light_dirs": [
+        "back-right",
+        "left"
+      ],
+      "fit_poses": [
+        "stand",
+        "sit",
+        "crouch"
+      ],
+      "perches": {
+        "stand": [
+          "stall counter",
+          "wok station"
+        ],
+        "sit": [
+          "plastic counter stool",
+          "crate bench"
+        ],
+        "crouch": [
+          "gas canister rack",
+          "under-counter shelf"
+        ]
+      },
+      "ground": "greasy metal plate floor",
+      "anchor": "counter",
+      "moods": [
+        "steam-hot, electric",
+        "crowded, glow-wet"
+      ]
+    },
+    {
+      "id": "nomad_tent",
+      "name_zh": "沙漠游牧帐篷内",
+      "name_en": "desert nomad tent interior",
+      "group": "fantasy",
+      "zh_place": "沙漠帐篷里",
+      "setting": "nomad tent interior",
+      "indoor": true,
+      "props": [
+        "woven wool blanket",
+        "hammered copper samovar",
+        "spice sacks"
+      ],
+      "opening": "tent-flap gap onto dunes",
+      "background": "wind-textured dune field",
+      "bg_far": "dune sea",
+      "materials": [
+        "hand-spun wool",
+        "hammered copper",
+        "coarse jute"
+      ],
+      "light_zh": "正午帐内滤光",
+      "light_time": "Filtered noon",
+      "light_dirs": [
+        "front",
+        "left"
+      ],
+      "fit_poses": [
+        "sit",
+        "kneel",
+        "crouch",
+        "stand"
+      ],
+      "perches": {
+        "sit": [
+          "flat cushions",
+          "folded rug pile"
+        ],
+        "kneel": [
+          "woven rug",
+          "prayer cushion"
+        ],
+        "crouch": [
+          "spice sack row",
+          "low chest"
+        ],
+        "stand": [
+          "samovar tray",
+          "tent pole"
+        ]
+      },
+      "ground": "layered woven rugs",
+      "anchor": "hearth",
+      "moods": [
+        "spice-warm, enclosed",
+        "amber, breezy"
+      ]
+    },
+    {
+      "id": "polar_station",
+      "name_zh": "极地科考站观测窗",
+      "name_en": "polar research station window",
+      "group": "fantasy",
+      "zh_place": "极地科考站里",
+      "setting": "polar research station observation room",
+      "indoor": true,
+      "props": [
+        "instrument panel",
+        "insulated flask",
+        "log notebook"
+      ],
+      "opening": "double-glazed observation window",
+      "background": "aurora over the ice shelf",
+      "bg_far": "ice horizon",
+      "materials": [
+        "anti-static panel",
+        "insulating foam",
+        "condensed frost glass"
+      ],
+      "light_zh": "极夜人工光混合极光",
+      "light_time": "Polar-night aurora",
+      "light_dirs": [
+        "back-left",
+        "back-right",
+        "front"
+      ],
+      "fit_poses": [
+        "sit",
+        "stand",
+        "lean"
+      ],
+      "perches": {
+        "sit": [
+          "operator chair",
+          "window bench"
+        ],
+        "stand": [
+          "instrument console",
+          "data rack"
+        ],
+        "lean": [
+          "console desk",
+          "bulkhead"
+        ]
+      },
+      "ground": "ribbed rubber matting",
+      "anchor": "window",
+      "moods": [
+        "aurora-green, hushed",
+        "scientific, cold-warm"
+      ]
+    },
+    {
+      "id": "wasteland_garage",
+      "name_zh": "废土车辆改装坊",
+      "name_en": "wasteland vehicle garage",
+      "group": "fantasy",
+      "zh_place": "废土改装坊里",
+      "setting": "wasteland vehicle garage",
+      "indoor": true,
+      "props": [
+        "scratched welding mask",
+        "dented oil drums",
+        "dust-covered engine block"
+      ],
+      "opening": "half-raised shutter onto the desert",
+      "background": "dust-hazed desert flats",
+      "bg_far": "mesa line",
+      "materials": [
+        "scavenged armor plate",
+        "carbonized rubber",
+        "dust-filmed metal"
+      ],
+      "light_zh": "黄昏尘土漫射光",
+      "light_time": "Dust-hazed dusk",
+      "light_dirs": [
+        "back-right",
+        "front",
+        "top"
+      ],
+      "fit_poses": [
+        "stand",
+        "crouch",
+        "lean",
+        "sit"
+      ],
+      "perches": {
+        "stand": [
+          "vehicle chassis",
+          "workbench"
+        ],
+        "crouch": [
+          "wheel arch",
+          "parts crate"
+        ],
+        "lean": [
+          "pickup bed",
+          "tool rack"
+        ],
+        "sit": [
+          "crate seat",
+          "stacked tyres"
+        ]
+      },
+      "ground": "oil-darkened dirt floor",
+      "anchor": "chassis",
+      "moods": [
+        "grit-orange, scrappy",
+        "welding-bright, harsh"
+      ]
+    },
+    {
+      "id": "cloud_temple",
+      "name_zh": "云端神庙回廊",
+      "name_en": "temple cloister above the clouds",
+      "group": "fantasy",
+      "zh_place": "云端神庙回廊",
+      "setting": "temple cloister above the clouds",
+      "indoor": false,
+      "props": [
+        "incense smoke curl",
+        "carved sutra stone",
+        "silk banner streamers"
+      ],
+      "opening": "sunrise gap in the cloud sea",
+      "background": "gold-lit cloud ocean",
+      "bg_far": "distant peaks",
+      "materials": [
+        "white marble",
+        "silk weave",
+        "condensation-beaded stone"
+      ],
+      "light_zh": "日出金色体积光",
+      "light_time": "Golden dawn",
+      "light_dirs": [
+        "back-right",
+        "back-left",
+        "front"
+      ],
+      "fit_poses": [
+        "stand",
+        "walk",
+        "sit",
+        "kneel"
+      ],
+      "perches": {
+        "stand": [
+          "cloister edge",
+          "incense burner"
+        ],
+        "walk": [
+          "cloister arcade",
+          "marble gallery"
+        ],
+        "sit": [
+          "stone plinth",
+          "carved step"
+        ],
+        "kneel": [
+          "prayer cushion",
+          "smooth step"
+        ]
+      },
+      "ground": "dew-beaded marble",
+      "anchor": "cloister",
+      "moods": [
+        "incense-gold, sublime",
+        "vast, serene"
+      ]
+    },
+    {
+      "id": "ink_workshop",
+      "name_zh": "传统制墨工坊",
+      "name_en": "traditional ink-making workshop",
+      "group": "heritage_indoor",
+      "zh_place": "制墨工坊里",
+      "setting": "traditional ink-making workshop",
+      "indoor": true,
+      "props": [
+        "inkstick mold",
+        "pine-soot bowl",
+        "bamboo curtain"
+      ],
+      "opening": "paper-latticed window",
+      "background": "courtyard drying racks",
+      "bg_far": "courtyard wall",
+      "materials": [
+        "soot-blackened wood",
+        "wet ink paste",
+        "woven bamboo"
+      ],
+      "light_zh": "上午侧窗柔光",
+      "light_time": "Soft morning",
+      "light_dirs": [
+        "left",
+        "front"
+      ],
+      "fit_poses": [
+        "sit",
+        "stand",
+        "kneel",
+        "lean"
+      ],
+      "perches": {
+        "sit": [
+          "low work bench",
+          "wooden stool"
+        ],
+        "stand": [
+          "ink stone table",
+          "mold press"
+        ],
+        "kneel": [
+          "straw mat",
+          "woven cushion"
+        ],
+        "lean": [
+          "workbench",
+          "doorframe"
+        ]
+      },
+      "ground": "worn flagstones",
+      "anchor": "table",
+      "moods": [
+        "soot-black, patient",
+        "inky, quiet"
+      ]
+    },
+    {
+      "id": "photo_studio",
+      "name_zh": "老式照相馆布景区",
+      "name_en": "vintage photo studio set",
+      "group": "heritage_indoor",
+      "zh_place": "老照相馆里",
+      "setting": "vintage photo studio set",
+      "indoor": true,
+      "props": [
+        "folding reflector",
+        "wooden tripod",
+        "velour backdrop roll"
+      ],
+      "opening": "skylight diffusion panel",
+      "background": "mottled painted backdrops",
+      "bg_far": "studio wall",
+      "materials": [
+        "worn canvas",
+        "velour nap",
+        "mat-painted wood"
+      ],
+      "light_zh": "正午天窗均匀散射光",
+      "light_time": "Even noon",
+      "light_dirs": [
+        "top",
+        "front"
+      ],
+      "fit_poses": [
+        "stand",
+        "sit",
+        "lean",
+        "crouch"
+      ],
+      "perches": {
+        "stand": [
+          "camera tripod",
+          "pose stool"
+        ],
+        "sit": [
+          "carved pose chair",
+          "velvet settee"
+        ],
+        "lean": [
+          "painted backdrop wall",
+          "prop pillar"
+        ],
+        "crouch": [
+          "lightbox",
+          "film crate"
+        ]
+      },
+      "ground": "mat-painted floorboards",
+      "anchor": "camera",
+      "moods": [
+        "formal, velvety",
+        "timeless, staged"
+      ]
+    },
+    {
+      "id": "tcm_counter",
+      "name_zh": "中药铺抓药台",
+      "name_en": "traditional medicine dispensary",
+      "group": "heritage_indoor",
+      "zh_place": "中药铺抓药台前",
+      "setting": "traditional medicine dispensary",
+      "indoor": true,
+      "props": [
+        "brass balance scale",
+        "paper-wrapped packets",
+        "bronze mortar"
+      ],
+      "opening": "high window over the herb drawers",
+      "background": "wall of labelled herb drawers",
+      "bg_far": "shop interior",
+      "materials": [
+        "dark elm drawers",
+        "yellowed labels",
+        "polished copper"
+      ],
+      "light_zh": "午后斜射体积光",
+      "light_time": "Raking afternoon",
+      "light_dirs": [
+        "left",
+        "right"
+      ],
+      "fit_poses": [
+        "sit",
+        "stand",
+        "lean",
+        "crouch"
+      ],
+      "perches": {
+        "sit": [
+          "high counter stool",
+          "wooden chair"
+        ],
+        "stand": [
+          "dispensary counter",
+          "drawer wall"
+        ],
+        "lean": [
+          "counter edge",
+          "timber pillar"
+        ],
+        "crouch": [
+          "low herb drawer",
+          "sack row"
+        ]
+      },
+      "ground": "dark timber boards",
+      "anchor": "counter",
+      "moods": [
+        "herbal, amber",
+        "orderly, bittersweet"
+      ]
+    },
+    {
+      "id": "paper_mill",
+      "name_zh": "手工造纸作坊",
+      "name_en": "hand papermaking workshop",
+      "group": "heritage_indoor",
+      "zh_place": "造纸作坊里",
+      "setting": "hand papermaking workshop",
+      "indoor": true,
+      "props": [
+        "papermaking screen",
+        "press stone",
+        "pulp vat"
+      ],
+      "opening": "open doorway to drying racks",
+      "background": "sheets drying on wooden frames",
+      "bg_far": "sunny yard",
+      "materials": [
+        "wet bamboo screen",
+        "coarse linen strainer",
+        "weathered bluestone"
+      ],
+      "light_zh": "清晨低角度暖光",
+      "light_time": "Warm low morning",
+      "light_dirs": [
+        "front",
+        "left",
+        "right"
+      ],
+      "fit_poses": [
+        "stand",
+        "sit",
+        "crouch",
+        "kneel"
+      ],
+      "perches": {
+        "stand": [
+          "pulp vat",
+          "press frame"
+        ],
+        "sit": [
+          "three-legged stool",
+          "low bench"
+        ],
+        "crouch": [
+          "vat side",
+          "drying rack base"
+        ],
+        "kneel": [
+          "straw mat",
+          "flat stone"
+        ]
+      },
+      "ground": "splash-dark stone floor",
+      "anchor": "vat",
+      "moods": [
+        "pulp-white, patient",
+        "wet, craft-lit"
+      ]
+    },
+    {
+      "id": "typewriter_desk",
+      "name_zh": "复古打字机维修桌",
+      "name_en": "vintage typewriter repair desk",
+      "group": "heritage_indoor",
+      "zh_place": "打字机维修桌前",
+      "setting": "vintage typewriter repair desk",
+      "indoor": true,
+      "props": [
+        "typebar box",
+        "ink ribbon spools",
+        "tweezer set"
+      ],
+      "opening": "attic slant window",
+      "background": "dormer shadows and dust motes",
+      "bg_far": "attic rafters",
+      "materials": [
+        "scratched enamel body",
+        "inked rubber pad",
+        "dusty oak desk"
+      ],
+      "light_zh": "下午条纹状侧光",
+      "light_time": "Striped afternoon",
+      "light_dirs": [
+        "left",
+        "right"
+      ],
+      "fit_poses": [
+        "sit",
+        "stand",
+        "lean"
+      ],
+      "perches": {
+        "sit": [
+          "bentwood chair",
+          "cushioned stool"
+        ],
+        "stand": [
+          "repair bench",
+          "shelf ladder"
+        ],
+        "lean": [
+          "desk edge",
+          "attic eaves"
+        ]
+      },
+      "ground": "creaking attic boards",
+      "anchor": "desk",
+      "moods": [
+        "dusty-gold, meticulous",
+        "clackety, warm"
+      ]
+    },
+    {
+      "id": "tea_terraces",
+      "name_zh": "晨雾茶园梯田",
+      "name_en": "mist-covered tea terraces",
+      "group": "eco_nature",
+      "zh_place": "晨雾茶园里",
+      "setting": "mist-covered tea terraces",
+      "indoor": false,
+      "props": [
+        "dew-tipped tea buds",
+        "woven bamboo basket",
+        "wet stone steps"
+      ],
+      "opening": "light break between mountain clouds",
+      "background": "terraced green slopes",
+      "bg_far": "far peaks",
+      "materials": [
+        "tender leaf veins",
+        "woven bamboo",
+        "mossy stone"
+      ],
+      "light_zh": "日出前蓝调转金光",
+      "light_time": "Blue-to-gold dawn",
+      "light_dirs": [
+        "back-left",
+        "back-right",
+        "top"
+      ],
+      "fit_poses": [
+        "walk",
+        "stand",
+        "crouch",
+        "sit"
+      ],
+      "perches": {
+        "walk": [
+          "terraced path",
+          "tea row gap"
+        ],
+        "stand": [
+          "terrace edge",
+          "basket spot"
+        ],
+        "crouch": [
+          "tea bush front",
+          "wet step"
+        ],
+        "sit": [
+          "stone stair landing",
+          "field ridge"
+        ]
+      },
+      "ground": "wet stone steps",
+      "anchor": "terrace",
+      "moods": [
+        "mist-silver, waking",
+        "green-gold, dewy"
+      ]
+    },
+    {
+      "id": "salt_fields",
+      "name_zh": "退潮盐田结晶池",
+      "name_en": "evaporation salt pans",
+      "group": "eco_nature",
+      "zh_place": "盐田结晶池边",
+      "setting": "evaporation salt pans at low tide",
+      "indoor": false,
+      "props": [
+        "wooden salt rake",
+        "brine crock",
+        "plank walkway"
+      ],
+      "opening": "sea-and-sky line at the horizon",
+      "background": "mirror flats of brine pools",
+      "bg_far": "sea line",
+      "materials": [
+        "white salt crystals",
+        "corroded wood",
+        "reflecting brine"
+      ],
+      "light_zh": "正午垂直强光",
+      "light_time": "Glaring noon",
+      "light_dirs": [
+        "top",
+        "front"
+      ],
+      "fit_poses": [
+        "stand",
+        "walk",
+        "crouch"
+      ],
+      "perches": {
+        "stand": [
+          "dike edge",
+          "rake handle"
+        ],
+        "walk": [
+          "plank walkway",
+          "dike top"
+        ],
+        "crouch": [
+          "crystal pool edge",
+          "brine crocks"
+        ]
+      },
+      "ground": "crusted salt pan",
+      "anchor": "pans",
+      "moods": [
+        "blinding-white, open",
+        "mineral, sharp"
+      ]
+    },
+    {
+      "id": "maple_creek",
+      "name_zh": "深秋枫林溪涧",
+      "name_en": "maple creek in late autumn",
+      "group": "eco_nature",
+      "zh_place": "深秋枫林溪涧边",
+      "setting": "maple creek in late autumn",
+      "indoor": false,
+      "props": [
+        "floating maple leaves",
+        "wet stones",
+        "broken branch"
+      ],
+      "opening": "crepuscular shaft through the canopy",
+      "background": "red-gold slope of maples",
+      "bg_far": "valley bend",
+      "materials": [
+        "crisp maple leaves",
+        "flowing water",
+        "fungus-veined wood"
+      ],
+      "light_zh": "午后斑驳树影光",
+      "light_time": "Dappled afternoon",
+      "light_dirs": [
+        "top",
+        "left",
+        "back-right"
+      ],
+      "fit_poses": [
+        "crouch",
+        "stand",
+        "walk",
+        "sit"
+      ],
+      "perches": {
+        "crouch": [
+          "creek edge",
+          "root bank"
+        ],
+        "stand": [
+          "mid-stream stone",
+          "bank boulder"
+        ],
+        "walk": [
+          "streamside trail",
+          "leaf drift"
+        ],
+        "sit": [
+          "mossy log",
+          "flat rock"
+        ]
+      },
+      "ground": "wet leaf-littered bank",
+      "anchor": "creek",
+      "moods": [
+        "red-gold, crisp",
+        "bright, leafy"
+      ]
+    },
+    {
+      "id": "ice_lake",
+      "name_zh": "冬日冰湖垂钓点",
+      "name_en": "ice fishing spot on a frozen lake",
+      "group": "eco_nature",
+      "zh_place": "冬日冰湖上",
+      "setting": "ice fishing spot on a frozen lake",
+      "indoor": false,
+      "props": [
+        "hand ice auger",
+        "insulated flask",
+        "fishing reel"
+      ],
+      "opening": "bare-tree skyline on the far shore",
+      "background": "white expanse of lake ice",
+      "bg_far": "far shore",
+      "materials": [
+        "clear cracked ice",
+        "condensing metal",
+        "nylon line"
+      ],
+      "light_zh": "冬日苍白平光",
+      "light_time": "Pale winter",
+      "light_dirs": [
+        "front",
+        "left",
+        "right"
+      ],
+      "fit_poses": [
+        "sit",
+        "crouch",
+        "stand",
+        "walk"
+      ],
+      "perches": {
+        "sit": [
+          "folding stool",
+          "upturned bucket"
+        ],
+        "crouch": [
+          "augered hole",
+          "line box"
+        ],
+        "stand": [
+          "tip-up rig",
+          "sled handle"
+        ],
+        "walk": [
+          "swept ice path",
+          "shore ice"
+        ]
+      },
+      "ground": "clouded ice surface",
+      "anchor": "hole",
+      "moods": [
+        "white-blue, patient",
+        "still, breath-fogged"
+      ]
+    },
+    {
+      "id": "lotus_boardwalk",
+      "name_zh": "雨后荷塘栈道",
+      "name_en": "lotus pond boardwalk after rain",
+      "group": "eco_nature",
+      "zh_place": "雨后荷塘栈道上",
+      "setting": "lotus pond boardwalk after rain",
+      "indoor": false,
+      "props": [
+        "rain-holding lotus leaves",
+        "snail shell",
+        "wet wood rail"
+      ],
+      "opening": "sky reflection in open water",
+      "background": "green lotus expanse",
+      "bg_far": "far reeds",
+      "materials": [
+        "wet leaf veins",
+        "glazed moss",
+        "rain-wet boards"
+      ],
+      "light_zh": "雨后阴天散射光",
+      "light_time": "Grey overcast",
+      "light_dirs": [
+        "top",
+        "left",
+        "right"
+      ],
+      "fit_poses": [
+        "walk",
+        "stand",
+        "sit",
+        "crouch"
+      ],
+      "perches": {
+        "walk": [
+          "boardwalk",
+          "plank run"
+        ],
+        "stand": [
+          "viewing rail",
+          "boardwalk bend"
+        ],
+        "sit": [
+          "platform bench",
+          "rail edge"
+        ],
+        "crouch": [
+          "leaf close-up",
+          "snail on the rail"
+        ]
+      },
+      "ground": "rain-slick boards",
+      "anchor": "boardwalk",
+      "moods": [
+        "green-hush, beaded",
+        "cool, glistening"
+      ]
+    },
+    {
+      "id": "typefoundry",
+      "name_zh": "废弃印刷厂排字房",
+      "name_en": "abandoned printworks composing room",
+      "group": "urban_more",
+      "zh_place": "废弃排字房里",
+      "setting": "abandoned printworks composing room",
+      "indoor": true,
+      "props": [
+        "lead type trays",
+        "ink-caked rollers",
+        "stacked proof sheets"
+      ],
+      "opening": "gridded high side windows",
+      "background": "empty casing rows in dust",
+      "bg_far": "shop dark",
+      "materials": [
+        "ink-stained bench wood",
+        "oxidized lead type",
+        "soft proof paper"
+      ],
+      "light_zh": "上午侧窗硬光",
+      "light_time": "Hard morning",
+      "light_dirs": [
+        "left",
+        "right",
+        "top"
+      ],
+      "fit_poses": [
+        "stand",
+        "sit",
+        "walk",
+        "lean"
+      ],
+      "perches": {
+        "stand": [
+          "composing stone",
+          "type cabinet"
+        ],
+        "sit": [
+          "printer's stool",
+          "stool by the cases"
+        ],
+        "walk": [
+          "aisle between cases",
+          "press hall"
+        ],
+        "lean": [
+          "stone slab",
+          "case frame"
+        ]
+      },
+      "ground": "dust-filmed boards",
+      "anchor": "cases",
+      "moods": [
+        "lead-grey, dormant",
+        "dust-lit, still"
+      ]
+    },
+    {
+      "id": "waiting_hall",
+      "name_zh": "老火车站候车厅长椅",
+      "name_en": "old railway waiting hall bench",
+      "group": "urban_more",
+      "zh_place": "老火车站候车厅里",
+      "setting": "old railway waiting hall bench",
+      "indoor": true,
+      "props": [
+        "leather suitcase",
+        "enamel sign",
+        "iron waste bin"
+      ],
+      "opening": "arched entrance to the platform",
+      "background": "vaulted hall with soft echo",
+      "bg_far": "platform light",
+      "materials": [
+        "cracked leatherette",
+        "chipped enamel",
+        "rusted cast iron"
+      ],
+      "light_zh": "黄昏琥珀色斜阳",
+      "light_time": "Amber dusk",
+      "light_dirs": [
+        "front",
+        "left",
+        "right"
+      ],
+      "fit_poses": [
+        "sit",
+        "stand",
+        "walk",
+        "lean"
+      ],
+      "perches": {
+        "sit": [
+          "slatted wooden bench",
+          "leather trunk"
+        ],
+        "stand": [
+          "departure board",
+          "timber pillar"
+        ],
+        "walk": [
+          "tiled concourse",
+          "ticket gate"
+        ],
+        "lean": [
+          "cast-iron pillar",
+          "bench end"
+        ]
+      },
+      "ground": "worn mosaic floor",
+      "anchor": "bench",
+      "moods": [
+        "amber, transient",
+        "echoing, unhurried"
+      ]
+    },
+    {
+      "id": "dry_dock",
+      "name_zh": "码头修船坞干船槽",
+      "name_en": "dry dock repair berth",
+      "group": "urban_more",
+      "zh_place": "干船坞里",
+      "setting": "dry dock repair berth",
+      "indoor": false,
+      "props": [
+        "rivet gun",
+        "anti-rust paint drums",
+        "coiled mooring line"
+      ],
+      "opening": "dock gate gap to open water",
+      "background": "glistening harbour water",
+      "bg_far": "harbour mouth",
+      "materials": [
+        "salt-pitted steel welds",
+        "oil-black concrete",
+        "abraded hemp rope"
+      ],
+      "light_zh": "正午金属反光强光",
+      "light_time": "Glaring noon",
+      "light_dirs": [
+        "top",
+        "back-right",
+        "left"
+      ],
+      "fit_poses": [
+        "stand",
+        "crouch",
+        "walk",
+        "sit"
+      ],
+      "perches": {
+        "stand": [
+          "scaffold stage",
+          "welding bench"
+        ],
+        "crouch": [
+          "hull plate",
+          "tool chest"
+        ],
+        "walk": [
+          "dock floor",
+          "staging plank"
+        ],
+        "sit": [
+          "coil of line",
+          "bollard"
+        ]
+      },
+      "ground": "oil-stained dock concrete",
+      "anchor": "hull",
+      "moods": [
+        "rust-red, industrious",
+        "salted, loud"
+      ]
+    },
+    {
+      "id": "garage_passage",
+      "name_zh": "地下车库涂鸦通道",
+      "name_en": "graffitied parking garage passage",
+      "group": "urban_more",
+      "zh_place": "车库涂鸦通道里",
+      "setting": "graffitied parking garage passage",
+      "indoor": true,
+      "props": [
+        "spray cans",
+        "shallow water mirror",
+        "tile grout lines"
+      ],
+      "opening": "exit ramp glow",
+      "background": "concrete piers in half-light",
+      "bg_far": "garage depth",
+      "materials": [
+        "peeling glazed tile",
+        "layered paint film",
+        "sweating concrete"
+      ],
+      "light_zh": "日间入口方向性光",
+      "light_time": "Pale daytime",
+      "light_dirs": [
+        "back-right",
+        "front"
+      ],
+      "fit_poses": [
+        "stand",
+        "crouch",
+        "walk",
+        "lean"
+      ],
+      "perches": {
+        "stand": [
+          "square pier",
+          "column base"
+        ],
+        "crouch": [
+          "spray crate",
+          "puddle edge"
+        ],
+        "walk": [
+          "parking lane",
+          "ramp incline"
+        ],
+        "lean": [
+          "pier wall",
+          "pipe run"
+        ]
+      },
+      "ground": "damp stained concrete",
+      "anchor": "pier",
+      "moods": [
+        "raw-chrome, illicit",
+        "humid, tunnelled"
+      ]
+    },
+    {
+      "id": "barber_pole",
+      "name_zh": "老式理发店旋转灯柱旁",
+      "name_en": "barbershop corner by the spinning pole",
+      "group": "urban_more",
+      "zh_place": "理发店旋转灯柱旁",
+      "setting": "barbershop corner by the spinning pole",
+      "indoor": true,
+      "props": [
+        "razor strop",
+        "enamel basin",
+        "chrome chair brackets"
+      ],
+      "opening": "street window with reflections",
+      "background": "sidewalk passers-by",
+      "bg_far": "street corner",
+      "materials": [
+        "mirror-polished chrome",
+        "faded leatherette",
+        "mosaic tiles"
+      ],
+      "light_zh": "下午橱窗混合反射光",
+      "light_time": "Reflected afternoon",
+      "light_dirs": [
+        "front",
+        "right"
+      ],
+      "fit_poses": [
+        "sit",
+        "stand",
+        "lean"
+      ],
+      "perches": {
+        "sit": [
+          "chrome barber chair",
+          "waiting bench"
+        ],
+        "stand": [
+          "mirror counter",
+          "sterilizer cabinet"
+        ],
+        "lean": [
+          "glass partition",
+          "counter"
+        ]
+      },
+      "ground": "mosaic tiled floor",
+      "anchor": "pole",
+      "moods": [
+        "chrome-warm, chatty",
+        "vintage, noon-quiet"
+      ]
+    },
+    {
+      "id": "astro_observatory",
+      "name_zh": "炼金术士星象观测台",
+      "name_en": "alchemist star observatory",
+      "group": "fantasy_more",
+      "zh_place": "星象观测台里",
+      "setting": "alchemist's star observatory",
+      "indoor": true,
+      "props": [
+        "armillary sphere",
+        "parchment star chart",
+        "brass telescope"
+      ],
+      "opening": "dome oculus with moonlight",
+      "background": "dome ribs in cold moon glow",
+      "bg_far": "night heavens",
+      "materials": [
+        "verdigris bronze",
+        "scorched parchment",
+        "bubble-blown glass"
+      ],
+      "light_zh": "夜间冷月混合烛火暖光",
+      "light_time": "Cold moonlit night",
+      "light_dirs": [
+        "top",
+        "back-left"
+      ],
+      "fit_poses": [
+        "stand",
+        "sit",
+        "crouch",
+        "lean"
+      ],
+      "perches": {
+        "stand": [
+          "telescope mount",
+          "chart table"
+        ],
+        "sit": [
+          "curved bench",
+          "cushioned stool"
+        ],
+        "crouch": [
+          "star chart spread",
+          "instrument chest"
+        ],
+        "lean": [
+          "dome wall",
+          "railing"
+        ]
+      },
+      "ground": "inlaid stone floor",
+      "anchor": "telescope",
+      "moods": [
+        "moon-cold, arcane",
+        "silent, orbit-slow"
+      ]
+    },
+    {
+      "id": "isle_falls",
+      "name_zh": "悬浮岛屿瀑布边缘",
+      "name_en": "waterfall edge of a floating isle",
+      "group": "fantasy_more",
+      "zh_place": "悬浮岛瀑布边缘",
+      "setting": "waterfall edge of a floating isle",
+      "indoor": false,
+      "props": [
+        "snapped chain links",
+        "glowing ferns",
+        "cracked stone platform"
+      ],
+      "opening": "cloud sea far below the lip",
+      "background": "falling water into open sky",
+      "bg_far": "cloud banks",
+      "materials": [
+        "wind-scored marble",
+        "glowing fern fronds",
+        "rusted chain bloom"
+      ],
+      "light_zh": "高空无遮挡日光",
+      "light_time": "Unclouded noon",
+      "light_dirs": [
+        "top",
+        "back-left"
+      ],
+      "fit_poses": [
+        "stand",
+        "sit",
+        "crouch",
+        "walk"
+      ],
+      "perches": {
+        "stand": [
+          "platform lip",
+          "chain anchor"
+        ],
+        "sit": [
+          "stone lip",
+          "fern bank"
+        ],
+        "crouch": [
+          "glowing fern bed",
+          "cracked slab"
+        ],
+        "walk": [
+          "ruin rim",
+          "stone causeway"
+        ]
+      },
+      "ground": "wind-smoothed stone",
+      "anchor": "lip",
+      "moods": [
+        "vertigo-bright, sacred",
+        "airy, falling-light"
+      ]
+    },
+    {
+      "id": "shipwreck_altar",
+      "name_zh": "深海沉船祭坛",
+      "name_en": "altar in a deep-sea wreck",
+      "group": "fantasy_more",
+      "zh_place": "深海沉船祭坛",
+      "setting": "altar in a deep-sea wreck",
+      "indoor": false,
+      "props": [
+        "coral-covered anchor",
+        "rising bubble strings",
+        "shell offering vessels"
+      ],
+      "opening": "faint blue shaft from far above",
+      "background": "ship ribs in blue gloom",
+      "bg_far": "wreck dark",
+      "materials": [
+        "calcified planks",
+        "jellyfish translucence",
+        "salt-eaten bronze"
+      ],
+      "light_zh": "水下散射蓝绿光",
+      "light_time": "Diffuse underwater",
+      "light_dirs": [
+        "top"
+      ],
+      "fit_poses": [
+        "stand",
+        "crouch",
+        "kneel",
+        "walk"
+      ],
+      "perches": {
+        "stand": [
+          "altar dais",
+          "wreck deck"
+        ],
+        "crouch": [
+          "coral growth",
+          "fallen beam"
+        ],
+        "kneel": [
+          "silted deck",
+          "altar step"
+        ],
+        "walk": [
+          "wreck corridor",
+          "rib aisle"
+        ]
+      },
+      "ground": "silt-floored hull",
+      "anchor": "altar",
+      "moods": [
+        "deep-blue, votive",
+        "weightless, sunken"
+      ]
+    },
+    {
+      "id": "zeppelin_hold",
+      "name_zh": "蒸汽朋克飞艇货舱",
+      "name_en": "steampunk zeppelin cargo hold",
+      "group": "fantasy_more",
+      "zh_place": "飞艇货舱里",
+      "setting": "steampunk zeppelin cargo hold",
+      "indoor": true,
+      "props": [
+        "brass gauges",
+        "copper valve manifold",
+        "rolled leather charts"
+      ],
+      "opening": "round stern window with moving cloud",
+      "background": "crates lashed in dim light",
+      "bg_far": "hold dark",
+      "materials": [
+        "polished brass",
+        "riveted plate seams",
+        "greasy canvas folds"
+      ],
+      "light_zh": "高空日光混合仪表背光",
+      "light_time": "Bright high-altitude",
+      "light_dirs": [
+        "front",
+        "left",
+        "right"
+      ],
+      "fit_poses": [
+        "stand",
+        "crouch",
+        "walk",
+        "lean"
+      ],
+      "perches": {
+        "stand": [
+          "cargo crate",
+          "valve manifold"
+        ],
+        "crouch": [
+          "lashed crates",
+          "hold floor"
+        ],
+        "walk": [
+          "crate alley",
+          "catwalk grate"
+        ],
+        "lean": [
+          "cargo stack",
+          "rib frame"
+        ]
+      },
+      "ground": "ribbed metal decking",
+      "anchor": "hold",
+      "moods": [
+        "brass-dim, buoyant",
+        "hauled, altitude-bright"
+      ]
+    },
+    {
+      "id": "elf_apothecary",
+      "name_zh": "精灵树屋药剂阁",
+      "name_en": "elven treehouse apothecary loft",
+      "group": "fantasy_more",
+      "zh_place": "精灵药剂阁里",
+      "setting": "elven treehouse apothecary loft",
+      "indoor": true,
+      "props": [
+        "glowing resin bottles",
+        "coiled vine ties",
+        "labeled seed jars"
+      ],
+      "opening": "star gaps between living branches",
+      "background": "moonlit leaf layers",
+      "bg_far": "canopy dark",
+      "materials": [
+        "living wood rings",
+        "translucent resin glow",
+        "dried husk fibers"
+      ],
+      "light_zh": "夜间生物荧光混合星光",
+      "light_time": "Bioluminescent night",
+      "light_dirs": [
+        "back-left",
+        "top",
+        "back-right"
+      ],
+      "fit_poses": [
+        "sit",
+        "stand",
+        "crouch",
+        "lean"
+      ],
+      "perches": {
+        "sit": [
+          "root-carved chair",
+          "loft nook"
+        ],
+        "stand": [
+          "mixing bench",
+          "shelf spiral"
+        ],
+        "crouch": [
+          "seed drawer",
+          "low cabinet"
+        ],
+        "lean": [
+          "bark wall",
+          "stair rail"
+        ]
+      },
+      "ground": "warm living wood",
+      "anchor": "bench",
+      "moods": [
+        "glow-amber, herbal",
+        "starlit, hushed"
+      ]
+    }
+  ]
+}

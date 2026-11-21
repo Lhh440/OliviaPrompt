@@ -32,7 +32,7 @@ Issues = "https://github.com/Lhh440/OliviaPrompt/issues"
 where = ["src"]
 
 [tool.setuptools.package-data]
-olivia_prompt = ["data/*.json"]
+olivia_prompt = ["data/*.json", "webapp/static/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

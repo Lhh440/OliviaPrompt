@@ -74,7 +74,14 @@ _POSE: Dict[str, Tuple[str, str, str, str, str]] = {
 }
 
 _GENDER_NOUN = {"female": "woman", "male": "man", "other": "person"}
+_GENDER_NOUN_PLURAL = {"female": "women", "male": "men", "other": "people"}
 _COUNT_PHRASE = {"1": "a single", "2": "two", "3": "three"}
+
+#: plural subject forms of the pose verbs (the table stores 3rd-person singular)
+_POSE_PLURAL = {
+    "sit": "sit", "stand": "stand", "walk": "walk", "lean": "lean",
+    "kneel": "kneel", "lie": "lie", "crouch": "crouch",
+}
 _COUNT_TAG = {
     "female": ("1girl", "2girls", "3girls"),
     "male": ("1boy", "2boys", "3boys"),
@@ -109,21 +116,42 @@ _SETTING_TAGS = {
     "balcony": "balcony", "classroom": "classroom", "kitchen": "kitchen",
     "temple": "temple", "ruins": "ruins", "train": "train_interior",
     "roof": "rooftop", "courtyard": "courtyard", "bar": "bar",
+    # scene-library coverage
+    "study": "indoors", "workshop": "workshop", "studio": "studio",
+    "greenhouse": "greenhouse", "laboratory": "laboratory", "observatory": "observatory",
+    "cliff": "cliff", "desert": "desert", "oasis": "oasis", "camp": "campsite",
+    "bamboo": "bamboo_forest", "avenue": "street", "meadow": "meadow",
+    "pond": "pond", "waterfall": "waterfall", "terraces": "field", "salt": "seaside",
+    "creek": "creek", "lake": "lake", "platform": "train_station_platform",
+    "factory": "factory", "dock": "dock", "terminal": "dock",
+    "underpass": "underpass", "garage": "garage", "barbershop": "barbershop",
+    "print": "indoors", "loft": "rooftop", "cellar": "indoors",
+    "bridge": "bridge", "gondola": "vehicle_interior", "tent": "tent_interior",
+    "apothecary": "indoors", "dispensary": "indoors", "mill": "indoors",
+    "isle": "island", "wreck": "shipwreck", "cloister": "temple",
+    "boardwalk": "boardwalk", "pan": "seaside", "field": "field",
 }
 
 _LIGHT_TAGS = (
     ("late-afternoon", "afternoon"),
     ("late afternoon", "afternoon"),
     ("golden hour", "golden_hour"),
+    ("golden dawn", "sunrise"),
     ("sunset", "sunset"),
     ("sunrise", "sunrise"),
     ("dusk", "dusk"),
     ("midnight", "night"),
     ("night", "night"),
+    ("blue hour", "blue_hour"),
     ("overcast", "overcast"),
     ("moonlight", "moonlight"),
     ("morning", "morning"),
     ("afternoon", "afternoon"),
+    # "noon" must come after "afternoon": the matcher tests substring-in-string
+    ("noon", "noon"),
+    ("midday", "noon"),
+    ("dawn", "dawn"),
+    ("evening", "evening"),
 )
 
 _DIR_TAGS = {
@@ -255,7 +283,8 @@ def _strip_article(text: str) -> str:
     return re.sub(r"^(?:a|an|the)\s+", "", (text or "").strip(), flags=re.I)
 
 
-_NO_SUN = ("night", "midnight", "moon", "dusk", "evening", "overcast", "indoor", "candle", "neon")
+_NO_SUN = ("night", "midnight", "moon", "dusk", "evening", "overcast", "indoor", "candle", "neon",
+           "blue hour", "pre-dawn", "aurora")
 
 
 def _light_word(light_time: str) -> str:
@@ -281,23 +310,30 @@ def _quality_line(ss: SlotSet) -> str:
 # long tier — 14 sentence positions
 # --------------------------------------------------------------------------- #
 
-def _long(ss: SlotSet) -> str:
+def _long_parts(ss: SlotSet, judge: str = "A", world: str = "A") -> Dict[str, str]:
+    """Build the five blocks of the long tier (prefix + P1..P4) separately.
+
+    ``judge`` selects the wording family for the judgement clauses (P1c / P2c /
+    P4d); ``world`` selects the P3 structure.  Skeleton variants in
+    :mod:`olivia_prompt.skeletons` compose these blocks differently — the
+    default skeleton "A" is the reference layout the M0 tests pin down.
+    """
     poss = ss.pronoun("poss")
     subj = _cap(ss.pronoun("subj"))
     pose = ss["pose_family"]
     verb, prep, rest, shoulder, ground_clause = _POSE[pose]
+    plural = str(ss["subject_count"]) not in ("1", "0")
+    if plural:
+        verb = _POSE_PLURAL.get(pose, verb)
     ground = _fix_pronoun(ss["ground"] or ss["setting"], ss)
     anchors = {"p": poss, "g": ground}
 
-    blocks: List[str] = []
-
     prefix = _quality_line(ss)
-    if prefix:
-        blocks.append(prefix)
 
     # P1a — subject anchor
     count = _COUNT_PHRASE.get(str(ss["subject_count"]), "a single")
-    noun = _GENDER_NOUN.get(ss["gender"], "person")
+    noun_table = _GENDER_NOUN_PLURAL if plural else _GENDER_NOUN
+    noun = noun_table.get(ss["gender"], "person")
     p1a = (
         f"A highly detailed {_medium_phrase(ss['medium'])} of {count} {ss['skin']} "
         f"{ss['age']} {noun} with {ss['hair_length']} {ss['hair_color']} hair, "
@@ -305,8 +341,9 @@ def _long(ss: SlotSet) -> str:
     )
     # P1b — wardrobe chain
     wardrobe = _with_detail(ss["outfit_main"], ss["outfit_detail"])
+    wear = "wear" if plural else "wears"
     extras = [_with_article(x) for x in (ss["outfit_layer"], ss["bartwear"]) if x]
-    p1b = f"{subj} wears {wardrobe}, {_join(extras)}." if extras else f"{subj} wears {wardrobe}."
+    p1b = f"{subj} {wear} {wardrobe}, {_join(extras)}." if extras else f"{subj} {wear} {wardrobe}."
     acc = [a for a in (ss.get("accessories") or ()) if a]
     if acc:
         p1b = p1b[:-1] + f", finished with {_join(acc)}."
@@ -314,16 +351,23 @@ def _long(ss: SlotSet) -> str:
     craft = [c for c in (ss.get("craft") or ()) if c]
     while len(craft) < 2:
         craft.append("softly folded fabric")
-    p1c = (
-        f"Fine strands of hair, {craft[0]} and {craft[1]} give {poss} appearance "
-        f"a natural, carefully observed quality."
-    )
-    blocks.append(" ".join((p1a, p1b, p1c)))
+    if judge == "C":
+        p1c = (
+            f"Every edge, from fine strands of hair to {craft[0]} and {craft[1]}, "
+            f"is drawn with deliberate, unhurried care."
+        )
+    else:
+        p1c = (
+            f"Fine strands of hair, {craft[0]} and {craft[1]} give {poss} appearance "
+            f"a natural, carefully observed quality."
+        )
+    p1 = " ".join((p1a, p1b, p1c))
 
     # P2 — pose, action, physical plausibility
     action = _fix_pronoun(ss["action"], ss)
     p2a = (
-        f"{subj} {verb} {prep} a {ss['perch']} in a {ss['setting']}, "
+        f"{subj} {verb} {prep} {_with_article(str(ss['perch']))} in "
+        f"{_with_article(str(ss['setting']))}, "
         f"{action} {rest.format(**anchors)}, one hand supports the {ss['hand_support']} "
         f"while the other {ss['hand_other']} with a {ss['grip']}."
     )
@@ -335,24 +379,39 @@ def _long(ss: SlotSet) -> str:
     vis = [v for v in (ss.get("visibility") or ()) if v]
     while len(vis) < 3:
         vis.append("hands")
-    p2c = f"Keep {poss} {vis[0]}, {vis[1]} and {vis[2]} clearly visible."
-    blocks.append(" ".join((p2a, p2b, p2c)))
+    if judge == "C":
+        p2c = (
+            f"Nothing important may fall out of frame: {poss} {vis[0]}, "
+            f"{vis[1]} and {vis[2]} stay in clear view."
+        )
+    else:
+        p2c = f"Keep {poss} {vis[0]}, {vis[1]} and {vis[2]} clearly visible."
+    p2 = " ".join((p2a, p2b, p2c))
 
     # P3 — world, materials, detail falloff
     props = [p for p in (ss.get("props") or ()) if p]
     while len(props) < 3:
         props.append("low planters")
-    p3a = f"{_cap(props[0])}, {props[1]} and {props[2]} frame the {ss['anchor']}."
-    p3b = f"A {ss['opening']} opens onto layers of {ss['background']}."
     mats = [m for m in (ss.get("materials") or ()) if m]
     while len(mats) < 3:
         mats.append("stone")
+    if world == "D":
+        p3a = (
+            f"Beyond {_with_article(str(ss['opening']))}, layers of {ss['background']} "
+            f"recede toward the distant {ss['bg_far']}."
+        )
+        p3b = (
+            f"In front, {_lc(props[0])}, {props[1]} and {props[2]} frame the {ss['anchor']}."
+        )
+    else:
+        p3a = f"{_cap(props[0])}, {props[1]} and {props[2]} frame the {ss['anchor']}."
+        p3b = f"{_cap(_with_article(str(ss['opening'])))} opens onto layers of {ss['background']}."
     p3c = (
         f"Show subtle wear on the {mats[0]}, fine veins in {mats[1]} and variations "
         f"in the {mats[2]} surface, with progressively softer detail toward the "
         f"distant {ss['bg_far']}."
     )
-    blocks.append(" ".join((p3a, p3b, p3c)))
+    p3 = " ".join((p3a, p3b, p3c))
 
     # P4 — light, palette, composition, render judgement
     hits = [_fix_pronoun(h, ss) for h in (ss.get("hit") or ()) if h]
@@ -370,12 +429,24 @@ def _long(ss: SlotSet) -> str:
     renders = [r for r in (ss.get("render") or ()) if r]
     while len(renders) < 3:
         renders.append("distinct material textures")
-    p4d = (
-        f"{renders[0]}, {renders[1]} and {renders[2]} create a {ss['mood']} "
-        f"{_medium_noun(ss['medium'])}."
-    )
-    blocks.append(" ".join((p4a, p4b, p4c, p4d)))
+    if judge == "C":
+        p4d = (
+            f"{renders[0]}, {renders[1]} and {renders[2]} make it read as a "
+            f"{ss['mood']} {_medium_noun(ss['medium'])} rather than a generic render."
+        )
+    else:
+        p4d = (
+            f"{renders[0]}, {renders[1]} and {renders[2]} create a {ss['mood']} "
+            f"{_medium_noun(ss['medium'])}."
+        )
+    p4 = " ".join((p4a, p4b, p4c, p4d))
 
+    return {"prefix": prefix, "p1": p1, "p2": p2, "p3": p3, "p4": p4}
+
+
+def _long(ss: SlotSet) -> str:
+    parts = _long_parts(ss)
+    blocks = [parts[k] for k in ("prefix", "p1", "p2", "p3", "p4") if parts[k]]
     return "\n\n".join(blocks)
 
 
@@ -387,11 +458,15 @@ def _medium(ss: SlotSet) -> str:
     poss = ss.pronoun("poss")
     subj = _cap(ss.pronoun("subj"))
     verb, prep, _rest, shoulder, ground_clause = _POSE[ss["pose_family"]]
+    plural = str(ss["subject_count"]) not in ("1", "0")
+    if plural:
+        verb = _POSE_PLURAL.get(str(ss["pose_family"]), verb)
     ground = _fix_pronoun(ss["ground"] or ss["setting"], ss)
     anchors = {"p": poss, "g": ground}
 
     count = _COUNT_PHRASE.get(str(ss["subject_count"]), "a single")
-    noun = _GENDER_NOUN.get(ss["gender"], "person")
+    noun_table = _GENDER_NOUN_PLURAL if plural else _GENDER_NOUN
+    noun = noun_table.get(ss["gender"], "person")
     wardrobe = _with_detail(ss["outfit_main"], ss["outfit_detail"])
     extras = [_with_article(x) for x in (ss["outfit_layer"], ss["bartwear"]) if x]
     head = _with_article(_medium_phrase(ss["medium"]))
@@ -404,7 +479,8 @@ def _medium(ss: SlotSet) -> str:
 
     gaze = _fix_pronoun(ss["gaze_target"], ss)
     p2 = (
-        f"{subj} {verb} {prep} a {ss['perch']} in a {ss['setting']}, "
+        f"{subj} {verb} {prep} {_with_article(str(ss['perch']))} in "
+        f"{_with_article(str(ss['setting']))}, "
         f"{_fix_pronoun(ss['action'], ss)}. {_cap(poss)} gaze follows {gaze}, "
         f"{poss} {shoulder.format(**anchors)}, and {ground_clause.format(**anchors)}."
     )
@@ -534,8 +610,17 @@ def _short(ss: SlotSet) -> str:
 # public API
 # --------------------------------------------------------------------------- #
 
-def render(slots: SlotSet, tier: str = "long", ecosystem: str | Ecosystem | None = None) -> str:
-    """Render one tier of the positive prompt."""
+def render(
+    slots: SlotSet,
+    tier: str = "long",
+    ecosystem: str | Ecosystem | None = None,
+    skeleton: str = "A",
+) -> str:
+    """Render one tier of the positive prompt.
+
+    ``skeleton`` only affects the long tier — see
+    :mod:`olivia_prompt.skeletons` for the available variants.
+    """
     if tier not in TIERS:
         raise ValueError(f"unknown tier {tier!r}; choose from {TIERS}")
     eco = ecosystem if isinstance(ecosystem, Ecosystem) else get_ecosystem(ecosystem)
@@ -546,6 +631,9 @@ def render(slots: SlotSet, tier: str = "long", ecosystem: str | Ecosystem | None
         return text
     if tier == "medium":
         return _medium(slots)
+    if skeleton != "A":
+        from .skeletons import build_long
+        return build_long(slots, skeleton, _long_parts)
     return _long(slots)
 
 
@@ -553,10 +641,11 @@ def render_all(
     slots: SlotSet,
     ecosystem: str | Ecosystem | None = None,
     tiers: Sequence[str] = TIERS,
+    skeleton: str = "A",
 ) -> Dict[str, str]:
     """Render several tiers in one pass."""
     eco = ecosystem if isinstance(ecosystem, Ecosystem) else get_ecosystem(ecosystem)
-    return {t: render(slots, t, eco) for t in tiers}
+    return {t: render(slots, t, eco, skeleton=skeleton) for t in tiers}
 
 
 __all__ = ["render", "render_all"]

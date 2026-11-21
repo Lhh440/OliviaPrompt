@@ -1,0 +1,162 @@
+{
+  "version": 1,
+  "field_notes": {
+    "action": "P2a 现在分词短语，必须包含 handheld 的前两个词之一（W_HANDHELD_ACTION）",
+    "handheld": "手持物，出现在镜像负向（object merging into hand）",
+    "hand_support": "「one hand supports the {hand_support}」",
+    "hand_other": "「the other {hand_other} with a {grip}」",
+    "visibility": "P2c 显式可见性三项",
+    "only": "场景 id 白名单；缺省 = 通用活动"
+  },
+  "activities": [
+    {
+      "key": "sketch", "zh": "画画",
+      "action": "drawing in an open sketchbook", "handheld": "open sketchbook",
+      "hand_support": "pages", "hand_other": "holds a pencil",
+      "gaze": "the drawing", "visibility": ["face", "hands", "sketchbook"]
+    },
+    {
+      "key": "read", "zh": "看书",
+      "action": "reading a well-worn paperback", "handheld": "well-worn paperback",
+      "hand_support": "cover", "hand_other": "turns a page",
+      "gaze": "the page", "visibility": ["face", "hands", "book"]
+    },
+    {
+      "key": "tea", "zh": "喝茶",
+      "action": "raising a handmade tea bowl", "handheld": "handmade tea bowl",
+      "hand_support": "saucer", "hand_other": "steadies the bowl",
+      "gaze": "the rising steam", "visibility": ["face", "hands", "tea bowl"]
+    },
+    {
+      "key": "write", "zh": "写信",
+      "action": "writing a letter with a fountain pen", "handheld": "fountain pen",
+      "hand_support": "paper", "hand_other": "steadies the page",
+      "gaze": "the page", "visibility": ["face", "hands", "letter"]
+    },
+    {
+      "key": "repair_watch", "zh": "修表",
+      "action": "examining a disassembled watch movement", "handheld": "watch movement",
+      "hand_support": "movement tray", "hand_other": "holds the loupe",
+      "gaze": "the gear train", "visibility": ["face", "hands", "watch parts"]
+    },
+    {
+      "key": "paint", "zh": "调色",
+      "action": "mixing paint on a wooden palette", "handheld": "wooden palette",
+      "hand_support": "palette", "hand_other": "dips a bristle brush",
+      "gaze": "the canvas", "visibility": ["face", "hands", "palette"]
+    },
+    {
+      "key": "sew", "zh": "缝纫",
+      "action": "stitching a seam with needle and thread", "handheld": "needle and thread",
+      "hand_support": "fabric", "hand_other": "guides the hem",
+      "gaze": "the stitch line", "visibility": ["face", "hands", "needlework"]
+    },
+    {
+      "key": "strings", "zh": "弹琴",
+      "action": "plucking a slow phrase on the strings", "handheld": "strings",
+      "hand_support": "instrument body", "hand_other": "presses a string",
+      "gaze": "the strings", "visibility": ["face", "hands", "instrument"],
+      "only": ["guqin_room"]
+    },
+    {
+      "key": "photograph", "zh": "拍照",
+      "action": "framing a shot with a folding camera", "handheld": "folding camera",
+      "hand_support": "camera base", "hand_other": "turns the focus ring",
+      "gaze": "the viewfinder", "visibility": ["face", "hands", "camera"]
+    },
+    {
+      "key": "herbs", "zh": "分装草药",
+      "action": "sorting dried herbs into paper packets", "handheld": "paper packet",
+      "hand_support": "packet", "hand_other": "weighs a pinch of herbs",
+      "gaze": "the herbs", "visibility": ["face", "hands", "herbs"],
+      "only": ["tcm_counter"]
+    },
+    {
+      "key": "record", "zh": "放唱片",
+      "action": "lowering the stylus onto a spinning record", "handheld": "vinyl record",
+      "hand_support": "record edge", "hand_other": "rests on the turntable lid",
+      "gaze": "the tonearm", "visibility": ["face", "hands", "record"],
+      "only": ["vinyl_corner"]
+    },
+    {
+      "key": "press_specimen", "zh": "压制标本",
+      "action": "pressing a flower specimen into a folder", "handheld": "specimen folder",
+      "hand_support": "folder", "hand_other": "positions the petals",
+      "gaze": "the specimen", "visibility": ["face", "hands", "specimen"],
+      "only": ["herbarium"]
+    },
+    {
+      "key": "tighten", "zh": "拧螺栓",
+      "action": "tightening a bolt with a heavy spanner", "handheld": "heavy spanner",
+      "hand_support": "fixture", "hand_other": "steadies the plate",
+      "gaze": "the bolt", "visibility": ["face", "hands", "spanner"],
+      "only": ["bridge_deck", "dry_dock", "container_dock", "old_factory_loft", "wasteland_garage", "abandoned_platform", "typefoundry"]
+    },
+    {
+      "key": "smoke", "zh": "点烟",
+      "action": "lighting a cigarette with a metal lighter", "handheld": "metal lighter",
+      "hand_support": "cigarette", "hand_other": "shields the flame",
+      "gaze": "the flame", "visibility": ["face", "hands", "lighter"],
+      "only": ["neon_alley", "cyber_noodles", "underpass_wall", "garage_passage", "wasteland_garage", "abandoned_platform", "book_cellar"]
+    },
+    {
+      "key": "pour", "zh": "倒牛奶",
+      "action": "pouring milk into a glass", "handheld": "glass milk bottle",
+      "hand_support": "bottle", "hand_other": "steadies the glass",
+      "gaze": "the pouring milk", "visibility": ["face", "hands", "bottle"],
+      "only": ["nordic_kitchen"]
+    },
+    {
+      "key": "ink", "zh": "研墨",
+      "action": "grinding an inkstick on the inkstone", "handheld": "inkstick",
+      "hand_support": "inkstone", "hand_other": "steadies the stone",
+      "gaze": "the ink pool", "visibility": ["face", "hands", "inkstone"],
+      "only": ["ink_workshop"]
+    },
+    {
+      "key": "water", "zh": "浇花",
+      "action": "watering a pot of ferns with a tin can", "handheld": "tin watering can",
+      "hand_support": "can handle", "hand_other": "tilts the spout",
+      "gaze": "the ferns", "visibility": ["face", "hands", "watering can"],
+      "only": ["herbarium"]
+    },
+    {
+      "key": "clay", "zh": "捏陶",
+      "action": "shaping a wet clay bowl on a cloth", "handheld": "wet clay bowl",
+      "hand_support": "cloth", "hand_other": "smooths the rim",
+      "gaze": "the clay", "visibility": ["face", "hands", "clay bowl"],
+      "only": ["paper_mill", "leather_shop", "ink_workshop"]
+    },
+    {
+      "key": "map", "zh": "看地图",
+      "action": "studying a folded travel map", "handheld": "folded map",
+      "hand_support": "map edge", "hand_other": "traces a route",
+      "gaze": "the map", "visibility": ["face", "hands", "map"]
+    },
+    {
+      "key": "type", "zh": "打字",
+      "action": "feeding a sheet of paper into a vintage typewriter", "handheld": "sheet of paper",
+      "hand_support": "carriage", "hand_other": "types a slow line",
+      "gaze": "the keys", "visibility": ["face", "hands", "typewriter"],
+      "only": ["typewriter_desk"]
+    },
+    {
+      "key": "knit", "zh": "织毛线",
+      "action": "knitting a half-finished sweater", "handheld": "knitting needles",
+      "hand_support": "needles", "hand_other": "guides the yarn",
+      "gaze": "the stitches", "visibility": ["face", "hands", "needles"]
+    },
+    {
+      "key": "ledger", "zh": "记账",
+      "action": "entering numbers in a paper ledger", "handheld": "paper ledger",
+      "hand_support": "ledger", "hand_other": "holds the pen ready",
+      "gaze": "the columns", "visibility": ["face", "hands", "ledger"]
+    },
+    {
+      "key": "wipe", "zh": "擦镜头",
+      "action": "wiping dust off a camera lens", "handheld": "lens cloth",
+      "hand_support": "lens", "hand_other": "holds the camera steady",
+      "gaze": "the glass", "visibility": ["face", "hands", "cloth"]
+    }
+  ]
+}
