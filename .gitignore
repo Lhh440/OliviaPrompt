@@ -21,6 +21,11 @@ models/
 data/cache/
 learning/
 
+# M4 training artifacts — scripts are committed, generated data is not
+training/data/out/
+training/out/
+.venv-train/
+
 # Editor / OS
 .vscode/
 .idea/

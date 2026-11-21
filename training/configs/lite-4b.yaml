@@ -1,0 +1,56 @@
+# OliviaPrompt Lite — Qwen3-4B LoRA（约 4070 上 25 分钟）
+# 产品侧承诺档位：短 + 中（长档建议用 standard-8b；本配置的数据包含长档，
+# 因为输出是槽位 JSON 而非散文，4B 负担可控，但长档质量仍以 8B 为准）
+# Windows 友好：HQQ 量化免 CUDA 扩展编译；sdpa 注意力（FA2 无官方 wheel，别碰）
+
+### model
+model_name_or_path: Qwen/Qwen3-4B
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 32
+lora_alpha: 64
+lora_dropout: 0.1
+lora_target: all
+
+### quantization (QLoRA)
+quantization_bit: 4
+quantization_method: hqq
+
+### dataset（先运行 training/scripts/train.bat 或 synthesize.py 生成）
+dataset: olivia_prompt_sft
+dataset_dir: training/data/out
+template: qwen3                # 老版本 LLaMA-Factory 没有该模板时改回 qwen2
+cutoff_len: 1536               # 输出是槽位 JSON，比散文短一半
+overwrite_cache: true
+preprocessing_num_workers: 8
+
+### output
+output_dir: training/out/lite-4b
+logging_steps: 10
+save_steps: 200
+plot_loss: true
+overwrite_output_dir: true
+
+### train（方案 v0.1 第七节统一配置）
+per_device_train_batch_size: 4
+gradient_accumulation_steps: 4
+learning_rate: 8.0e-5
+num_train_epochs: 3
+lr_scheduler_type: cosine
+warmup_ratio: 0.05
+neftune_noise_alpha: 5
+bf16: true
+gradient_checkpointing: true
+attn_implementation: sdpa
+packing: false
+train_on_prompt: false
+
+### eval
+val_size: 0.02
+eval_strategy: steps
+eval_steps: 200
+per_device_eval_batch_size: 4
