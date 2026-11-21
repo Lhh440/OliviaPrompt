@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OliviaPrompt · 本地提示词引擎</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header>
+  <div class="brand"><span class="logo">◍</span> OliviaPrompt<span class="sub">本地提示词引擎</span></div>
+  <div class="hcontrols">
+    <label class="hlabel">生态
+      <select id="eco"></select>
+    </label>
+    <span id="modelChip" class="chip chip-off">模型未配置</span>
+  </div>
+</header>
+
+<main>
+  <!-- ① intent -->
+  <section class="panel">
+    <h2>① 需求</h2>
+    <textarea id="intent" rows="4"
+      placeholder="例：赛博朋克雨夜巷子里点烟的银发女子，电影感，竖构图，脸部和手要清楚"></textarea>
+    <div class="row">
+      <select id="tier">
+        <option value="long">长档 · 四段散文</option>
+        <option value="medium">中档 · 三段散文</option>
+        <option value="short">短档 · tag 串</option>
+      </select>
+      <select id="skeleton" title="长档骨架变体"></select>
+      <button id="btnAsk">生成槽位</button>
+    </div>
+    <p class="hint" id="configHint">接模型：环境变量 OLIVIA_BASE_URL / OLIVIA_MODEL，或 ~/.olivia-prompt/config.json。本地 GGUF 用 llama-server 即为 OpenAI 兼容端点。</p>
+    <label class="checkline"><input type="checkbox" id="compact"> 微调模型紧凑提示（本地 GGUF 勾选，训练契约直连）</label>
+    <div id="askNotes" class="notes"></div>
+  </section>
+
+  <!-- ② slot table -->
+  <section class="panel">
+    <h2>② 槽位 <span class="sub">改任意槽位即时重渲染，不重跑模型</span></h2>
+    <div id="slotGroups" class="slots"></div>
+  </section>
+
+  <!-- ③ output -->
+  <section class="panel">
+    <h2>③ 输出</h2>
+    <div class="tabs" id="tierTabs">
+      <button data-tier="short">短</button>
+      <button data-tier="medium">中</button>
+      <button data-tier="long" class="active">长</button>
+      <span class="spacer"></span>
+      <button id="btnCopy" class="ghost">复制正向</button>
+    </div>
+    <pre id="posText" class="outtext">（在左侧填需求，或直接改槽位）</pre>
+
+    <div class="negcard">
+      <div class="row tight">
+        <strong>负向</strong>
+        <span id="negStrength" class="chip">-</span>
+        <span class="spacer"></span>
+        <button id="btnCopyNeg" class="ghost">复制负向</button>
+      </div>
+      <pre id="negText" class="outtext small"></pre>
+      <p id="negNote" class="hint"></p>
+      <div id="patchBlock" class="patch" hidden>
+        <strong>正向约束补丁<span class="sub">（负向无效，追加到正向末尾）</span></strong>
+        <pre id="patchText" class="outtext small"></pre>
+      </div>
+    </div>
+
+    <div class="issuescard">
+      <strong>自检</strong>
+      <ul id="issues" class="issues"><li class="ok">尚未运行</li></ul>
+    </div>
+  </section>
+</main>
+
+<footer>OliviaPrompt · 模型只填槽位，格式由代码保证 · <a href="https://github.com/Lhh440/OliviaPrompt" target="_blank">GitHub</a></footer>
+<script src="/static/app.js"></script>
+</body>
+</html>
