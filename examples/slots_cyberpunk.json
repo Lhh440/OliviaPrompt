@@ -1,0 +1,52 @@
+{
+  "subject_count": { "value": 1, "src": "user" },
+  "gender": { "value": "female", "src": "user" },
+  "skin": { "value": "pale-skinned", "src": "inferred" },
+  "hair_length": { "value": "very long", "src": "user" },
+  "hair_color": { "value": "black", "src": "user" },
+  "eye_color": { "value": "amber", "src": "user" },
+  "expression": { "value": "guarded, tired", "src": "user" },
+
+  "outfit_main": { "value": "black leather trench coat", "src": "user" },
+  "outfit_detail": { "value": "worn stitching at the cuffs", "src": "inferred" },
+  "outfit_layer": { "value": "grey ribbed turtleneck", "src": "user" },
+  "bartwear": { "value": "scuffed combat boots", "src": "inferred" },
+  "accessories": { "value": ["a thin silver chain"], "src": "inferred" },
+
+  "pose_family": { "value": "stand", "src": "user" },
+  "perch": { "value": "wet kerb", "src": "inferred" },
+  "setting": { "value": "rain-soaked cyberpunk alley", "src": "user" },
+  "action": { "value": "lighting a cigarette", "src": "user" },
+  "handheld": { "value": "a metal lighter", "src": "user" },
+  "hand_support": { "value": "cigarette", "src": "inferred" },
+  "hand_other": { "value": "shields the flame", "src": "inferred" },
+  "grip": { "value": "practised, unhurried grip", "src": "user" },
+  "gaze_target": { "value": "the flame", "src": "user" },
+  "visibility": { "value": ["face", "hands", "lighter"], "src": "user" },
+  "ground": { "value": "wet asphalt", "src": "user" },
+
+  "indoor": { "value": false, "src": "user" },
+  "props": { "value": ["overflowing dumpsters", "tangled cables", "steam vents"], "src": "user" },
+  "anchor": { "value": "alley mouth", "src": "inferred" },
+  "opening": { "value": "narrow service gap", "src": "inferred" },
+  "background": { "value": "stacked neon signage", "src": "user" },
+  "bg_far": { "value": "skyline", "src": "inferred" },
+  "materials": { "value": ["brickwork", "wet metal", "fogged glass"], "src": "user" },
+
+  "light_time": { "value": "Cold midnight", "src": "user" },
+  "light_dir": { "value": "back-right", "src": "user" },
+  "hit": { "value": ["rim of her jaw", "edge of the lighter"], "src": "inferred" },
+  "cool_color": { "value": "cyan", "src": "user" },
+  "warm_color": { "value": "orange", "src": "user" },
+
+  "aspect": { "value": "tall vertical", "src": "user" },
+  "cam_height": { "value": "chest level", "src": "user" },
+
+  "medium": { "value": "cinematic photography", "src": "user" },
+  "model_style": { "value": "", "src": "user" },
+  "render": {
+    "value": ["Anamorphic lens flare", "grainy high-ISO texture", "volumetric rain haze"],
+    "src": "user"
+  },
+  "mood": { "value": "lonely, electric", "src": "user" }
+}

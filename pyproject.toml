@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "olivia-prompt"
+version = "0.1.0"
+description = "Local-first AI art prompt engine: Chinese intent -> structured slots -> positive + negative prompts in three tiers."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Lhh440" }]
+keywords = ["prompt", "stable-diffusion", "illustrious", "danbooru", "llm", "local-first"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+olivia-prompt = "olivia_prompt.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/Lhh440/OliviaPrompt"
+Issues = "https://github.com/Lhh440/OliviaPrompt/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+olivia_prompt = ["data/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

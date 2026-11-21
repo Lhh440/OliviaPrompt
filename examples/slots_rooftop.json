@@ -1,0 +1,43 @@
+{
+  "subject_count": { "value": 1, "src": "user" },
+  "gender": { "value": "female", "src": "user" },
+  "age": { "value": "adult", "src": "inferred" },
+  "skin": { "value": "fair-skinned", "src": "inferred" },
+  "hair_length": { "value": "long", "src": "user" },
+  "hair_color": { "value": "silver", "src": "user" },
+  "eye_color": { "value": "blue-gray", "src": "inferred" },
+  "expression": { "value": "calm, attentive", "src": "inferred" },
+
+  "outfit_main": { "value": "deep navy dress", "src": "user" },
+  "outfit_detail": { "value": "delicate ivory embroidery", "src": "inferred" },
+  "outfit_layer": { "value": "lightweight cream cardigan", "src": "inferred" },
+  "bartwear": { "value": "simple leather ankle boots", "src": "inferred" },
+
+  "pose_family": { "value": "sit", "src": "user" },
+  "perch": { "value": "wooden bench", "src": "user" },
+  "setting": { "value": "quiet rooftop garden", "src": "user" },
+  "action": { "value": "drawing in an open sketchbook", "src": "user" },
+  "handheld": { "value": "open sketchbook", "src": "user" },
+  "hand_support": { "value": "pages", "src": "inferred" },
+  "hand_other": { "value": "holds a pencil", "src": "inferred" },
+  "gaze_target": { "value": "the drawing", "src": "inferred" },
+  "ground": { "value": "stone paving", "src": "inferred" },
+
+  "indoor": { "value": false, "src": "user" },
+  "props": { "value": ["Climbing roses", "terracotta planters", "slender grasses"], "src": "user" },
+  "anchor": { "value": "bench", "src": "inferred" },
+  "opening": { "value": "low wrought-iron railing", "src": "inferred" },
+  "background": { "value": "distant rooftops", "src": "inferred" },
+  "bg_far": { "value": "city", "src": "inferred" },
+  "materials": { "value": ["wood", "nearby leaves", "stone"], "src": "inferred" },
+
+  "light_time": { "value": "Warm late-afternoon", "src": "user" },
+  "light_dir": { "value": "left", "src": "user" },
+
+  "aspect": { "value": "spacious horizontal", "src": "inferred" },
+  "cam_height": { "value": "seated eye level", "src": "inferred" },
+
+  "medium": { "value": "anime illustration", "src": "user" },
+  "model_style": { "value": "krea2 style", "src": "user" },
+  "mood": { "value": "peaceful, coherent", "src": "inferred" }
+}
