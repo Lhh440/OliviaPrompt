@@ -60,8 +60,14 @@ dataloader_pin_memory: false
 packing: false
 train_on_prompt: false
 
-### eval
+### eval — 训练中期 eval 关闭（实测：三次死锁都发生在 step 200 的 eval 之后；
+### 模型质量由训练后的 50 条基准 eval 把关，中期 eval 无增益只添风险）
 val_size: 0.02
-eval_strategy: steps
-eval_steps: 200
+eval_strategy: "no"
 per_device_eval_batch_size: 4
+
+### resume hardening（Windows 死锁缓解配套）：
+### 数据快进在日志里完全静默（时长 ≈ 跳过步数×1.4s），外置监管会把健康的
+### 续训误判成死锁。ignore_data_skip 放弃快进（部分数据重复一次，合成数据
+### 可接受），换取消训后日志立即活跃，监管判定可靠。
+ignore_data_skip: true
