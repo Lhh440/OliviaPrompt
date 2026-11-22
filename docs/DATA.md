@@ -72,9 +72,24 @@ training\scripts\train.bat lite train    :: 只训练
 training\scripts\train.bat lite export   :: 只导出 GGUF
 ```
 
-统一配置即方案 §七：LoRA r32 α64 / HQQ 4bit QLoRA / lr 8e-5 cosine / 3 epochs /
-`cutoff_len 1536` / sdpa（FA2 无 Windows 官方 wheel）/ neftune 5。
+统一配置即方案 §七：LoRA r32 α64 / bnb 4bit QLoRA（nf4）/ lr 8e-5 cosine / 3 epochs /
+`cutoff_len 1536` / sdpa 注意力（FA2 无 Windows 官方 wheel）/ neftune 5。
 `template: qwen3`，老版本 LLaMA-Factory 没有该模板时改回 `qwen2`。
+
+**Windows 实测版本组合与死锁结论（2026-11，RTX 4070 12GB，py-spy 逐进程定位）：**
+
+* 先装 `torch==2.5.1+cu121`（顺序错误会拉到 CPU 轮子），再装 LLaMA-Factory 0.9.5，
+  然后 `transformers==4.56.1`（5.x 与 peft 0.18 互斥；4.51 被 LF 0.9.5 拒绝）、
+  `torchaudio==2.5.1+cu121 torchvision==0.20.1+cu121`（LF 无条件 import torchaudio）。
+* **梯度检查点在 Windows + torch 2.5.1 上死锁**：py-spy 显示 backward 卡死在
+  autograd 引擎等待点（`graph.py:825`），reentrant 与非 reentrant 皆复现；
+  关闭 `gradient_checkpointing` 后 3 步内恢复正常，全程稳定。
+* **bnb 4bit 不可用于训练**：backward 走 `_dequant_linear_fallback`（融合核未生效），
+  与检查点叠加必死锁。**hqq 0.2.8 与 LF 0.9.5 传参不兼容**，直接崩。
+* 最终可用配置：**bf16 全量 LoRA + 无检查点 + batch 1×16**（等效 16），
+  4B 在 4070 上 ~14s/it，1083 步约 4.2 小时，11.9GB 显存全程无 OOM。
+* Standard（8B）因此待更大显存（24GB bf16 可跑）或上游修复，配置已就绪
+  （`training/configs/standard-8b.yaml`）。
 
 训练产物不入库（`training/data/out/`、`training/out/`、`.venv-train/` 已 gitignore）；
 GGUF 按方案 §八放 Release + `models.json` 清单（M5）。

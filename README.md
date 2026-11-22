@@ -108,7 +108,20 @@ training\scripts\train.bat standard   # Qwen3-8B：Q5_K_M，长档质量更高
 python training/scripts/eval.py --base-url http://127.0.0.1:8081/v1 --model olivia --label lite
 ```
 
-详见 [docs/DATA.md](docs/DATA.md)。
+Windows 实测版本组合与踩坑记录见 [docs/DATA.md](docs/DATA.md)。
+
+### 一键使用（M5）
+
+```bash
+scripts\start.bat            # 双击即用：装包 → 按 models/models.json 下载 GGUF
+                             # （断点续传 + sha256 校验）→ 下载 llama-server →
+                             # 起 8081 推理 + 7860 Web → 打开浏览器
+scripts\start.bat standard   # 用 8B 档
+```
+
+大文件默认落在 `.\models\`（可用环境变量 `OLIVIA_MODELS_DIR` 指到其他盘）。
+Docker 方式：`docker compose up`（llama.cpp server-cuda 推理 + Web 两个服务）。
+权重文件不入仓库；上传用 `scripts/upload_models.py`（需 HF_WRITE_TOKEN）。
 
 ---
 
@@ -237,8 +250,8 @@ docs/            方案、schema、负向规范、数据与训练
 | M1 | 规则版批量采样（场景库 × 槽位），不跑模型 | ✅ 60 场景 / 覆盖矩阵 / 200 条验收 |
 | M2 | 接入模型：中文需求 → 槽位 JSON（OpenAI 兼容 + 本地 GGUF 同协议） | ✅ 含自洽修复循环 |
 | M3 | Web 端（槽位表可编辑、三档并列、负向有效性） | ✅ 零依赖 stdlib 服务器 |
-| M4 | 数据合成 + Lite(4B)/Standard(8B) 训练 + eval | ✅ 管线就绪；训练执行需 GPU |
-| M5 | `start.bat` 一键分发 / docker / 模型上传 | — |
+| M4 | 数据合成 + Lite(4B) 训练 + eval | ✅ lite 已训练并导出 GGUF；Standard(8B) 配置就绪，待更大显存或上游修复（[docs/DATA.md](docs/DATA.md)） |
+| M5 | `start.bat` 一键分发 / docker / 模型上传 | ✅ |
 
 ---
 
