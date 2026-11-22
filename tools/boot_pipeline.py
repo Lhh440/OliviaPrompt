@@ -72,21 +72,24 @@ def sha256(path):
 def wait_for_training():
     """Launch fresh training with inline watchdog; returns only on clean exit."""
     tlog = E / 'tools' / 'train_lite.log'
-    ckpts = E / 'data' / 'training-out' / 'lite-4b'
-    for ck in ckpts.glob('checkpoint-*'):
-        ck.unlink()
-    if tlog.exists():
-        tlog.unlink()
+    if tlog.exists() and 'FIRST_BOOT_CLEAR' not in os.environ:
+        pass  # checkpoints intentionally kept: restarts resume from latest
 
     log('step2: fresh training start')
     for attempt in range(12):
         logf = open(tlog, 'ab')
-        proc = subprocess.Popen([str(VENV / 'python.exe'),
-                                 str(VENV / 'Scripts' / 'llamafactory-cli.exe'),
-                                 'train', 'training/configs/lite-4b.yaml',
-                                 'model_name_or_path=E:/OliviaPrompt/models/Qwen3-4B',
-                                 'dataset_dir=E:/OliviaPrompt/data/out',
-                                 'output_dir=E:/OliviaPrompt/data/training-out/lite-4b'],
+        ckpts = E / 'data' / 'training-out' / 'lite-4b'
+        resume = 'resume_from_checkpoint=true' if any(ckpts.glob('checkpoint-*')) else ''
+        log(f'attempt launch (resume={bool(resume)})')
+        args = [str(VENV / 'python.exe'),
+                str(VENV / 'llamafactory-cli.exe'),
+                'train', 'training/configs/lite-4b.yaml',
+                'model_name_or_path=E:/OliviaPrompt/models/Qwen3-4B',
+                'dataset_dir=E:/OliviaPrompt/data/out',
+                'output_dir=E:/OliviaPrompt/data/training-out/lite-4b']
+        if resume:
+            args.append(resume)
+        proc = subprocess.Popen(args,
                                 cwd=str(ROOT), stdout=logf, stderr=subprocess.STDOUT,
                                 creationflags=0x00000008 | 0x00000200, close_fds=True)
         log(f'training attempt {attempt + 1} launched (pid {proc.pid})')
@@ -109,6 +112,8 @@ def wait_for_training():
                 last_step, last_change = cur, time.time()
                 log(f'progress step={cur}')
                 continue
+            # 注意：只检测完全停滞（540s 无任何日志更新）。预处理/加载阶段
+            # 本来就会静默数分钟，不能用「步数不变」判定，否则会误杀。
             stalled = time.time() - last_change > 540
             log(f'watchdog step={cur} stale={int(time.time()-last_change)}s')
             if stalled:
@@ -135,7 +140,9 @@ def main():
     sh(['git', 'config', '--global', '--add', 'safe.directory', 'D:/OliviaPrompt'])
     log('step0: git safe.directory set')
 
-    # step 1: fresh training with watchdog
+    # step 1: fresh training with watchdog (boot clears checkpoints; restarts keep them)
+    for ck in (E / 'data' / 'training-out' / 'lite-4b').glob('checkpoint-*'):
+        ck.unlink()
     wait_for_training()
 
     # step 2: merge

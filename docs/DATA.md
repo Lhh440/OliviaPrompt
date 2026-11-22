@@ -81,15 +81,18 @@ training\scripts\train.bat lite export   :: 只导出 GGUF
 * 先装 `torch==2.5.1+cu121`（顺序错误会拉到 CPU 轮子），再装 LLaMA-Factory 0.9.5，
   然后 `transformers==4.56.1`（5.x 与 peft 0.18 互斥；4.51 被 LF 0.9.5 拒绝）、
   `torchaudio==2.5.1+cu121 torchvision==0.20.1+cu121`（LF 无条件 import torchaudio）。
-* **backward 偶发死锁（环境级，最终结论）**：py-spy 多次定位到 autograd 引擎
-  等待点（`graph.py:824/825`）——torch 2.5.1 与 2.7.1 皆复现，且与梯度检查点
-  （reentrant/非 reentrant）、bnb/hqq 量化、dataloader 配置**均无关**，
-  判定为驱动/OS 层 CUDA 事件竞态，非 PyTorch 版本 bug。
+* **backward 死锁根因（最终确认）：transformers 4.56.1 与 torch 2.5.1 +
+  Windows 组合的 backward 死锁 bug**。py-spy 多次定位到 autograd 引擎等待点
+  （`graph.py:824/825`）；4.56.1 下所有运行（bnb/bf16、检查点开关、dataloader
+  配置、重启前后）全部在 1-4 步内复现；**恢复 transformers 5.6.0（与唯一成功的
+  长跑同栈）后连续步进无死锁**。torch 2.7.1 + 4.56.1 也同样复现，排除 torch
+  版本单因素。
 * **缓解方案（已在跑）**：50 步密集存档（`save_steps: 50`）+ 外置监管
   （日志停滞 8 分钟即杀进程、从最新 checkpoint 续训）——损失上界 50 步 + 11 分钟。
 * **bnb 4bit 不可用于训练**：backward 走 `_dequant_linear_fallback`（融合核未生效），
   拖慢 + 与上述死锁叠加。**hqq 0.2.8 与 LF 0.9.5 传参不兼容**，直接崩。
-* 可用配置：**bf16 全量 LoRA + batch 1×16**，4B 在 4070 上 12-15s/it，11.9GB 无 OOM。
+* 可用配置（最终）：**torch 2.5.1+cu121 + transformers 5.6.0 + bf16 全量 LoRA +
+  batch 1×16**，4B 在 4070 上 ~19s/it 连续稳定，11.9GB 无 OOM。
 * Standard（8B）因此待更大显存（24GB bf16 可跑）或环境修复，配置已就绪
   （`training/configs/standard-8b.yaml`）。
 
