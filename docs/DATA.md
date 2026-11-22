@@ -81,14 +81,16 @@ training\scripts\train.bat lite export   :: 只导出 GGUF
 * 先装 `torch==2.5.1+cu121`（顺序错误会拉到 CPU 轮子），再装 LLaMA-Factory 0.9.5，
   然后 `transformers==4.56.1`（5.x 与 peft 0.18 互斥；4.51 被 LF 0.9.5 拒绝）、
   `torchaudio==2.5.1+cu121 torchvision==0.20.1+cu121`（LF 无条件 import torchaudio）。
-* **梯度检查点在 Windows + torch 2.5.1 上死锁**：py-spy 显示 backward 卡死在
-  autograd 引擎等待点（`graph.py:825`），reentrant 与非 reentrant 皆复现；
-  关闭 `gradient_checkpointing` 后 3 步内恢复正常，全程稳定。
+* **backward 偶发死锁（环境级，最终结论）**：py-spy 多次定位到 autograd 引擎
+  等待点（`graph.py:824/825`）——torch 2.5.1 与 2.7.1 皆复现，且与梯度检查点
+  （reentrant/非 reentrant）、bnb/hqq 量化、dataloader 配置**均无关**，
+  判定为驱动/OS 层 CUDA 事件竞态，非 PyTorch 版本 bug。
+* **缓解方案（已在跑）**：50 步密集存档（`save_steps: 50`）+ 外置监管
+  （日志停滞 8 分钟即杀进程、从最新 checkpoint 续训）——损失上界 50 步 + 11 分钟。
 * **bnb 4bit 不可用于训练**：backward 走 `_dequant_linear_fallback`（融合核未生效），
-  与检查点叠加必死锁。**hqq 0.2.8 与 LF 0.9.5 传参不兼容**，直接崩。
-* 最终可用配置：**bf16 全量 LoRA + 无检查点 + batch 1×16**（等效 16），
-  4B 在 4070 上 ~14s/it，1083 步约 4.2 小时，11.9GB 显存全程无 OOM。
-* Standard（8B）因此待更大显存（24GB bf16 可跑）或上游修复，配置已就绪
+  拖慢 + 与上述死锁叠加。**hqq 0.2.8 与 LF 0.9.5 传参不兼容**，直接崩。
+* 可用配置：**bf16 全量 LoRA + batch 1×16**，4B 在 4070 上 12-15s/it，11.9GB 无 OOM。
+* Standard（8B）因此待更大显存（24GB bf16 可跑）或环境修复，配置已就绪
   （`training/configs/standard-8b.yaml`）。
 
 训练产物不入库（`training/data/out/`、`training/out/`、`.venv-train/` 已 gitignore）；

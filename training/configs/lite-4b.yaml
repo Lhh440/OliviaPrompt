@@ -21,11 +21,13 @@ lora_alpha: 64
 lora_dropout: 0.1
 lora_target: all
 
-### quantization — 关闭。Windows 实测结论（RTX 4070 / torch 2.5.1 / LF 0.9.5）：
-### * 梯度检查点（reentrant 与非 reentrant 皆）死锁在 autograd 引擎 backward 等待点
-### * bnb 4bit 的 backward 走 _dequant_linear_fallback，叠加检查点必死锁
-### * hqq 0.2.8 与 LF 0.9.5 传参不兼容
-### 可用路径：bf16 全量 LoRA + 无检查点 + batch 1×16（12GB 卡实测 14s/it 全程稳定）
+### quantization — 关闭。Windows 实测结论（RTX 4070 / LF 0.9.5，py-spy 逐次定位）：
+### * torch 2.5.1 与 2.7.1 上 backward 均偶发死锁在 autograd 引擎等待点
+###   （graph.py:824/825）——与梯度检查点、量化方式、dataloader 配置无关，
+###   属驱动/OS 层 CUDA 事件竞态；缓解 = 50 步密集存档 + 停滞 8 分钟自动
+###   杀进程续训（scripts 侧 auto_resume.sh），损失上界 50 步 + 11 分钟
+### * bnb 4bit 另有 dequant fallback 拖慢问题；hqq 0.2.8 与 LF 0.9.5 不兼容
+### 可用路径：bf16 全量 LoRA + batch 1×16（12GB 卡实测 12-15s/it）
 quantization_bit: null
 
 ### dataset（先运行 training/scripts/train.bat 或 synthesize.py 生成）
@@ -39,7 +41,7 @@ preprocessing_num_workers: 8
 ### output
 output_dir: training/out/lite-4b
 logging_steps: 10
-save_steps: 200
+save_steps: 50                  # 密集存档：Windows 偶发 autograd 死锁时最多损失 50 步
 plot_loss: true
 overwrite_output_dir: true
 
@@ -53,6 +55,8 @@ warmup_ratio: 0.05
 neftune_noise_alpha: 5
 bf16: true
 gradient_checkpointing: false   # 实验 E1：排除 checkpointing 死锁因素（显存代价：batch 1）
+dataloader_num_workers: 0
+dataloader_pin_memory: false
 packing: false
 train_on_prompt: false
 
