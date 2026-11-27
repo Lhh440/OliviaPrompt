@@ -5,6 +5,6 @@ web tier must not add an install burden.  ``ThreadingHTTPServer`` + vanilla JS
 keeps `olivia-prompt web` a zero-dependency command.
 """
 
-from .server import make_server, serve
+from .server import make_server, parse_bind, serve
 
-__all__ = ["make_server", "serve"]
+__all__ = ["make_server", "parse_bind", "serve"]
