@@ -268,10 +268,13 @@ async function boot() {
   if (cfg.llm_ready) {
     chip.textContent = `模型已配置 · ${cfg.model}`;
     chip.className = "chip chip-strong";
-    $("configHint").textContent = `端点 ${cfg.base_url} — 生成槽位只跑一次模型，之后改槽位即时重渲染。`;
+    $("configHint").textContent = `端点 ${cfg.base_url} — 输入需求后点「生成槽位」（或 Ctrl+Enter）只跑一次模型，之后改槽位即时重渲染。`;
   }
 
   $("btnAsk").addEventListener("click", ask);
+  $("intent").addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === "Enter") { e.preventDefault(); ask(); }
+  });
   $("tier").addEventListener("change", () => buildSlotTable());
   $("tierTabs").addEventListener("click", (ev) => {
     const btn = ev.target.closest("button[data-tier]");

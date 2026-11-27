@@ -32,8 +32,8 @@
       <select id="skeleton" title="长档骨架变体"></select>
       <button id="btnAsk">生成槽位</button>
     </div>
-    <p class="hint" id="configHint">接模型：环境变量 OLIVIA_BASE_URL / OLIVIA_MODEL，或 ~/.olivia-prompt/config.json。本地 GGUF 用 llama-server 即为 OpenAI 兼容端点。</p>
-    <label class="checkline"><input type="checkbox" id="compact"> 微调模型紧凑提示（本地 GGUF 勾选，训练契约直连）</label>
+    <p class="hint" id="configHint">输入需求 → 点「生成槽位」（或 Ctrl+Enter），模型只跑这一次，之后改槽位即时重渲染。接模型：OLIVIA_BASE_URL / OLIVIA_MODEL 环境变量或 ~/.olivia-prompt/config.json。</p>
+    <label class="checkline"><input type="checkbox" id="compact" checked> 微调模型紧凑契约（默认勾选：本地微调 GGUF 用这个；接外部通用模型再取消）</label>
     <div id="askNotes" class="notes"></div>
   </section>
 
