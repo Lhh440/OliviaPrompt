@@ -1,0 +1,23 @@
+services:
+  llama:
+    # GGUF 权重从 models.json 清单下载后放进 ./models（或 OLIVIA_MODELS_DIR）
+    image: ghcr.io/ggml-org/llama.cpp:server-cuda
+    ports:
+      - "8081:8081"
+    volumes:
+      - ${OLIVIA_MODELS_DIR:-./models}:/models
+    command: >
+      -m /models/olivia-lite-qwen3-4b-q4_k_m.gguf
+      --host 0.0.0.0 --port 8081 --parallel 2 -ngl 999
+    restart: unless-stopped
+
+  web:
+    build: .
+    ports:
+      - "7860:7860"
+    environment:
+      OLIVIA_BASE_URL: http://llama:8081/v1
+      OLIVIA_MODEL: olivia
+    depends_on:
+      - llama
+    restart: unless-stopped

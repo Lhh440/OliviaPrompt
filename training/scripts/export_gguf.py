@@ -15,6 +15,7 @@ Environment: LLAMA_CPP_DIR may replace --llama-cpp.
 from __future__ import annotations
 
 import argparse
+import os
 import shutil
 import subprocess
 import sys
@@ -32,6 +33,12 @@ STAGES: Dict[str, dict] = {
 }
 
 MODELS_DIR = ROOT / "models"
+
+
+def _models_dir(out: Optional[str]) -> Path:
+    d = Path(out) if out else Path(os.environ.get("OLIVIA_MODELS_DIR", MODELS_DIR))
+    d.mkdir(parents=True, exist_ok=True)
+    return d
 
 
 def read_yaml_simple(path: Path) -> Dict[str, str]:
@@ -102,7 +109,7 @@ def llama_cpp_tools(llama_cpp_dir: Path) -> tuple:
     return convert, quantize
 
 
-def export(stage: str, llama_cpp_dir: Optional[Path]) -> Path:
+def export(stage: str, llama_cpp_dir: Optional[Path], out_dir: Optional[str] = None) -> Path:
     if stage not in STAGES:
         raise SystemExit(f"unknown stage {stage!r}; choose from {sorted(STAGES)}")
     spec = STAGES[stage]
@@ -114,7 +121,7 @@ def export(stage: str, llama_cpp_dir: Optional[Path]) -> Path:
             "或 pip install \"llamafactory[torch,metrics]\"。"
         )
 
-    MODELS_DIR.mkdir(exist_ok=True)
+    models_dir = _models_dir(out_dir)
     merged_dir = ROOT / "training" / "out" / f"merged-{stage}"
     merge_yaml = write_merge_config(config_path, merged_dir)
 
@@ -123,12 +130,12 @@ def export(stage: str, llama_cpp_dir: Optional[Path]) -> Path:
         raise SystemExit(f"merge 输出目录不存在: {merged_dir}")
 
     convert, quantize = llama_cpp_tools(Path(llama_cpp_dir) if llama_cpp_dir
-                                        else Path(__import__("os").environ.get("LLAMA_CPP_DIR", ".")))
-    f16 = MODELS_DIR / f"{spec['gguf']}-f16.gguf"
+                                        else Path(os.environ.get("LLAMA_CPP_DIR", ".")))
+    f16 = models_dir / f"{spec['gguf']}-f16.gguf"
     run([sys.executable, convert, merged_dir,
          "--outfile", f16, "--outtype", "f16"], "2/3 convert to GGUF")
 
-    quantized = MODELS_DIR / f"{spec['gguf']}-{spec['quant'].lower()}.gguf"
+    quantized = models_dir / f"{spec['gguf']}-{spec['quant'].lower()}.gguf"
     run([quantize, f16, quantized, spec["quant"]], "3/3 quantize")
     f16.unlink(missing_ok=True)
 
@@ -142,8 +149,9 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="LoRA → merged → GGUF 导出")
     ap.add_argument("--stage", default="lite", choices=sorted(STAGES))
     ap.add_argument("--llama-cpp", default=None, help="llama.cpp 目录（含 convert_hf_to_gguf.py 与编译产物）")
+    ap.add_argument("--out", default=None, help="GGUF 输出目录（默认 ./models 或 OLIVIA_MODELS_DIR）")
     args = ap.parse_args(argv)
-    export(args.stage, args.llama_cpp)
+    export(args.stage, args.llama_cpp, args.out)
     return 0
 
 
