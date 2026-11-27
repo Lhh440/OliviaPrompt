@@ -1,14 +1,13 @@
-"""OliviaPrompt boot pipeline — autonomous: train -> merge -> GGUF -> evals ->
-report -> commit/push -> shutdown.
+"""OliviaPrompt training pipeline v6 — resume + auto-cleanup, NO shutdown.
 
-Launch notes (Windows): the trainer runs inside its OWN console window
-(`cmd /c start /min`), i.e. a foreground-class process. Detached background
-processes get EcoQoS throttling on this machine and deadlock CUDA sync within
-a few training steps (py-spy verified: threads stall inside
-Qwen3RMSNorm/CheckpointFunction; a foreground pure-torch stress loop runs
-111k matmuls without a single hang).
-
-Logs: E:/OliviaPrompt/tools/boot_pipeline.log
+Flow:
+  1. Resume training from latest checkpoint (50-step granularity)
+  2. After completion: clean up intermediate checkpoints + temp files
+  3. merge LoRA -> f16 GGUF -> quantize Q4_K_M
+  4. base model GGUF (for comparison eval)
+  5. llama-server eval x2 (finetuned vs baseline few-shot)
+  6. comparison report -> sha256 -> git commit/push -> FINAL_REPORT
+  7. NO shutdown (user is downloading)
 """
 
 import hashlib
@@ -28,7 +27,6 @@ T = E / 'tools' / 'llama.cpp'
 M = E / 'models'
 LOG = E / 'tools' / 'boot_pipeline.log'
 DONE_FLAG = E / 'tools' / 'CHAIN_DONE'
-BAT = E / 'tools' / 'train_attempt.bat'
 
 os.environ['HF_HUB_OFFLINE'] = '1'
 os.environ['TOKENIZERS_PARALLELISM'] = 'false'
@@ -36,6 +34,8 @@ os.environ['GIT_AUTHOR_NAME'] = 'Olivia Bot'
 os.environ['GIT_AUTHOR_EMAIL'] = 'olivia-bot@users.noreply.github.com'
 os.environ['GIT_COMMITTER_NAME'] = 'Olivia Bot'
 os.environ['GIT_COMMITTER_EMAIL'] = 'olivia-bot@users.noreply.github.com'
+
+ADAPTER_DIR = E / 'data' / 'training-out' / 'lite-4b'
 
 
 def log(msg):
@@ -80,73 +80,56 @@ def kill_training():
     sh(['taskkill', '/IM', 'llamafactory-cli.exe', '/F'], 30)
 
 
-def write_attempt_bat(resume):
-    """The trainer runs in its own minimized console window = foreground-class
-    scheduling. The bat writes its exit code into the log for the poll loop."""
-    lines = [
-        '@echo off',
-        'set PYTHONUNBUFFERED=1',
-        'set HF_HUB_OFFLINE=1',
-        'set TOKENIZERS_PARALLELISM=false',
-        'set PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True',
-        'cd /d D:\\OliviaPrompt',
-        f'{VENV}\\python.exe {LFCLI} train training/configs/lite-4b.yaml '
-        'model_name_or_path=E:/OliviaPrompt/models/Qwen3-4B '
-        'dataset_dir=E:/OliviaPrompt/data/out '
-        'output_dir=E:/OliviaPrompt/data/training-out/lite-4b'
-        + (f' {resume}' if resume else '')
-        + ' >> ' + str(E / 'tools' / 'train_lite.log') + ' 2>&1',
-        'echo TRAIN_EXIT_CODE %errorlevel% >> ' + str(E / 'tools' / 'train_lite.log'),
-    ]
-    BAT.write_text('\r\n'.join(lines) + '\r\n', encoding='utf-8')
-
-
 def wait_for_training():
-    """Launch fresh training in its own console; poll + watchdog.
+    """Resume training with CREATE_NEW_CONSOLE (foreground-class scheduling).
 
-    Completion: `train_runtime` in the log (HF prints it at the very end).
-    Crash: the trainer console disappears without it.
-    Stall: no new step number for 540s while the process is alive.
-    On stall/crash: kill every python, relaunch, resume from the latest
-    checkpoint (50-step granularity, so a stall loses at most 50 steps).
+    Output is redirected by the pipeline itself (stdout=tlog), NOT by a bat
+    file intermediary, to guarantee the log file always exists.
     """
     tlog = E / 'tools' / 'train_lite.log'
-    if tlog.exists():
-        tlog.unlink()
 
     for attempt in range(12):
-        ckpts = E / 'data' / 'training-out' / 'lite-4b'
-        resume = 'resume_from_checkpoint=true' if any(ckpts.glob('checkpoint-*')) else ''
-        log(f'attempt {attempt + 1} launch (resume={bool(resume)})')
-        write_attempt_bat(resume)
+        ckpts = list(ADAPTER_DIR.glob('checkpoint-*')) if ADAPTER_DIR.exists() else []
+        resume = 'resume_from_checkpoint=true' if ckpts else ''
+        log(f'attempt {attempt + 1} launch (resume={bool(resume)}, '
+            f'ckpts={len(ckpts)})')
+
         args = [str(VENV / 'python.exe'), str(LFCLI), 'train',
                 'training/configs/lite-4b.yaml',
                 'model_name_or_path=E:/OliviaPrompt/models/Qwen3-4B',
                 'dataset_dir=E:/OliviaPrompt/data/out',
                 'output_dir=E:/OliviaPrompt/data/training-out/lite-4b']
         if resume:
-            args.append(resume)
+            args.append('resume_from_checkpoint=true')
+
         logf = open(tlog, 'ab')
-        # CREATE_NEW_CONSOLE: the trainer gets its own console window
-        # (foreground-class scheduling, NOT EcoQoS-throttled like
-        # DETACHED_PROCESS children) while stdout still lands in tlog.
+        # CREATE_NEW_CONSOLE (0x10): trainer gets its own console window =
+        # foreground-class scheduling, NOT EcoQoS-throttled. stdout/stderr
+        # redirected by the pipeline to guarantee the log file exists.
         proc = subprocess.Popen(args, cwd=str(ROOT), stdout=logf,
                                 stderr=subprocess.STDOUT,
                                 creationflags=0x00000010, close_fds=True)
+        logf.close()
+        log(f'trainer pid {proc.pid}')
+
         last_step, last_change = None, time.time()
         while True:
             time.sleep(60)
-            alive = trainer_alive()
+            rc = proc.poll()
+            if rc is not None:
+                log(f'training process exited rc={rc}')
+                if rc == 0:
+                    return
+                break
             try:
                 tail = tlog.read_bytes()[-4000:].decode('utf-8', 'replace')
             except OSError:
                 tail = ''
             if 'train_runtime' in tail:
-                log('training completed (train_runtime found) — SUCCESS')
+                log('train_runtime found — waiting for process to exit')
+                proc.wait(timeout=300)
+                log('training process exited — SUCCESS')
                 return
-            if not alive:
-                log('trainer console gone without train_runtime — crash')
-                break
             m = re.findall(r'(\d+)/1083', tail)
             cur = m[-1] if m else None
             if cur != last_step:
@@ -156,12 +139,25 @@ def wait_for_training():
             stalled = time.time() - last_change > 540
             log(f'watchdog step={cur} stale={int(time.time() - last_change)}s')
             if stalled:
-                log(f'STALL at step {cur} — kill everything and resume')
+                log(f'STALL at step {cur} — kill and resume from checkpoint')
                 kill_training()
                 time.sleep(8)
                 break
         log(f'attempt {attempt + 1} ended without clean exit')
     raise RuntimeError('training failed after 12 attempts')
+
+
+def cleanup_checkpoints():
+    """Remove intermediate checkpoints after training completes."""
+    if not ADAPTER_DIR.exists():
+        return
+    ckpts = sorted(ADAPTER_DIR.glob('checkpoint-*'),
+                   key=lambda p: int(p.name.split('-')[-1]))
+    for ck in ckpts:
+        log(f'cleanup: removing {ck.name}')
+        import shutil
+        shutil.rmtree(ck, ignore_errors=True)
+    log(f'cleanup: {len(ckpts)} checkpoint(s) removed')
 
 
 def merge_step():
@@ -235,35 +231,39 @@ def serve_and_eval(gguf, label, baseline):
 
 
 def main():
-    log('BOOT PIPELINE START')
+    log('BOOT PIPELINE v6 START (resume mode, no shutdown)')
     time.sleep(60)
 
     log('step0: git safe.directory')
     sh(['git', 'config', '--global', '--add', 'safe.directory', 'D:/OliviaPrompt'])
 
-    log('step1: fresh training (watchdog protected)')
+    log('step1: resume training (watchdog protected)')
     wait_for_training()
 
-    log('step2: merge')
+    log('step2: cleanup intermediate checkpoints')
+    cleanup_checkpoints()
+
+    log('step3: merge')
     merged = merge_step()
-    log('step3: GGUF + quantize')
+    log('step4: GGUF + quantize')
     q4 = gguf_steps(merged)
-    log('step4: base GGUF')
+    log('step5: base GGUF')
     bq4 = base_gguf_step()
 
-    log('step5: finetuned eval')
+    log('step6: finetuned eval')
     serve_and_eval(q4, 'lite', False)
-    log('step6: baseline eval')
+    log('step7: baseline eval')
     serve_and_eval(bq4, 'base', True)
 
-    log('step7: comparison report')
+    log('step8: comparison report')
     sh([VPY, 'training/scripts/eval.py', '--compare',
         'training/eval/report_lite.json', 'training/eval/report_base.json'], check=False)
 
-    log('step8: sha256 into models.json')
+    log('step9: sha256 into models.json')
     mj = ROOT / 'models' / 'models.json'
     manifest = json.loads(mj.read_text(encoding='utf-8'))
     manifest['models']['lite']['sha256'] = sha256(q4)
+    manifest['models']['lite']['status'] = 'trained'
     if bq4.exists():
         manifest['models']['base'] = {
             'file': 'qwen3-4b-base-q4_k_m.gguf',
@@ -274,10 +274,11 @@ def main():
         }
     mj.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 
-    log('step9: commit + push')
-    sh(['git', 'add', 'models/models.json', 'training/eval/', 'training/configs/'], check=False)
+    log('step10: commit + push')
+    sh(['git', 'add', 'models/models.json', 'training/eval/', 'training/configs/',
+        'tools/boot_pipeline.py', 'TRAINING_REPORT.md'], check=False)
     sh(['git', 'commit', '-m',
-        'M4 executed: lite GGUF trained+exported, benchmark evals vs base, sha256 manifest'],
+        'M4 complete: lite GGUF trained+exported, benchmark evals vs base, cleanup'],
        check=False)
     pushed = False
     for _ in range(30):
@@ -289,7 +290,7 @@ def main():
         log('push failed — retry in 60s')
         time.sleep(60)
 
-    log('step10: final report')
+    log('step11: final report')
     try:
         summary = (ROOT / 'training' / 'eval' / 'comparison.txt').read_text(encoding='utf-8')
     except OSError:
@@ -311,8 +312,8 @@ def main():
 ## GitHub 推送
 {'已推送 ✓' if pushed else '推送失败——提交在本地 D:/OliviaPrompt，登录后手动 git push 即可'}
 
-## 收尾
-自动关机即将执行（120 秒）。取消：shutdown /a
+## 状态
+✅ 训练完成 | ✅ GGUF 导出 | ✅ eval 完成 | ✅ 已提交 | 机器保持运行（不关机）
 """
     (ROOT / 'FINAL_REPORT.md').write_text(report, encoding='utf-8')
     public_desktop = Path(os.environ.get('PUBLIC', 'C:/Users/Public')) / 'Desktop'
@@ -320,8 +321,7 @@ def main():
     log('FINAL REPORT written')
 
     DONE_FLAG.write_text('done', encoding='utf-8')
-    log('step11: shutdown in 120s')
-    sh(['shutdown', '/s', '/t', '120'], 30)
+    log('PIPELINE COMPLETE — machine stays running (no shutdown)')
 
 
 if __name__ == '__main__':
