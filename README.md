@@ -4,9 +4,9 @@
 
 本地优先的 AI 绘画提示词引擎。中文意图 → 结构化槽位 → 三档长度的正向提示词 + 五层镜像负向提示词。
 
-> 状态：**M0–M4 完成**。槽位 schema、三档渲染器（含 4 种长档骨架）、五层负向、自洽校验、
+> 状态：**M0–M5 完成**。槽位 schema、三档渲染器（含 4 种长档骨架）、五层负向、自洽校验、
 > 规则版批量采样、模型接入（OpenAI 兼容）、Web 端、数据合成与训练管线全部可用。
-> 训练执行需要 GPU（`training/scripts/train.bat`），GGUF 分发在 M5。
+> **Lite 模型已训练并上架 Hugging Face**：[Lhh1sillho/OliviaPrompt-GGUF](https://huggingface.co/Lhh1sillho/OliviaPrompt-GGUF)。
 
 ---
 
@@ -122,6 +122,33 @@ scripts\start.bat standard   # 用 8B 档
 大文件默认落在 `.\models\`（可用环境变量 `OLIVIA_MODELS_DIR` 指到其他盘）。
 Docker 方式：`docker compose up`（llama.cpp server-cuda 推理 + Web 两个服务）。
 权重文件不入仓库；上传用 `scripts/upload_models.py`（需 HF_WRITE_TOKEN）。
+
+---
+
+## 训练成果（Lite 4B，50 条基准实测）
+
+微调模型 vs 原始基座（few-shot）在同一份 50 case 基准上的表现：
+
+```
+metric                      lite         base
+json_ok_rate              100.0%        60.0%     输出永远是合法槽位 JSON
+slot_acc                   98.0%        52.2%     44 个槽位的值准确率
+weighted_acc               97.8%        55.2%     高影响槽位加权
+consistency_error_rate      0.0%         6.7%     渲染前自洽校验错误率
+```
+
+「模型只填槽位、格式由代码保证」的产品假设在 4B 上成立：模型从未输出过
+非法 JSON，人类可读的三档提示词全部由确定性渲染器生成。
+
+### 模型下载
+
+| 文件 | 大小 | 说明 |
+|---|---|---|
+| [olivia-lite-qwen3-4b-q4_k_m.gguf](https://huggingface.co/Lhh1sillho/OliviaPrompt-GGUF/resolve/main/olivia-lite-qwen3-4b-q4_k_m.gguf) | 2.5GB | **成品**，短+中档为主，长档可用 |
+| [qwen3-4b-base-q4_k_m.gguf](https://huggingface.co/Lhh1sillho/OliviaPrompt-GGUF/resolve/main/qwen3-4b-base-q4_k_m.gguf) | 2.5GB | 原始 Qwen3-4B（基座对照） |
+
+sha256 见 [models/models.json](models/models.json)，`scripts/start.bat` 下载时自动校验。
+国内直连慢可用 `set HF_ENDPOINT=https://hf-mirror.com` 再跑 start.bat。
 
 ---
 
@@ -250,8 +277,8 @@ docs/            方案、schema、负向规范、数据与训练
 | M1 | 规则版批量采样（场景库 × 槽位），不跑模型 | ✅ 60 场景 / 覆盖矩阵 / 200 条验收 |
 | M2 | 接入模型：中文需求 → 槽位 JSON（OpenAI 兼容 + 本地 GGUF 同协议） | ✅ 含自洽修复循环 |
 | M3 | Web 端（槽位表可编辑、三档并列、负向有效性） | ✅ 零依赖 stdlib 服务器 |
-| M4 | 数据合成 + Lite(4B) 训练 + eval | ✅ lite 已训练并导出 GGUF；Standard(8B) 配置就绪，待更大显存或上游修复（[docs/DATA.md](docs/DATA.md)） |
-| M5 | `start.bat` 一键分发 / docker / 模型上传 | ✅ |
+| M4 | 数据合成 + Lite(4B) 训练 + eval | ✅ 1083 步，槽位准确率 98%（基座 52%）；Standard(8B) 配置就绪，待 ≥24GB 显存（[docs/DATA.md](docs/DATA.md)） |
+| M5 | `start.bat` 一键分发 / docker / 模型上传 | ✅ 模型已上架 HF |
 
 ---
 

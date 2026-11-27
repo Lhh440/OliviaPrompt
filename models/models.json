@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "meta": {
+    "note": "权重不入仓库；下载器见 scripts/bootstrap.py（断点续传 + sha256）。上传见 scripts/upload_models.py。",
+    "llama_cpp_release": "b12606",
+    "updated": ""
+  },
+  "models": {
+    "lite": {
+      "file": "olivia-lite-qwen3-4b-q4_k_m.gguf",
+      "url": "hf://Lhh1sillho/OliviaPrompt-GGUF/olivia-lite-qwen3-4b-q4_k_m.gguf",
+      "sha256": "f91485386b0739c98e9ff0341dc0f90369b58b25961961d6c2ccf4520f826f92",
+      "size_hint": "≈2.5GB · Qwen3-4B Q4_K_M · 短+中档为主，长档可用",
+      "min_vram_gb": 0,
+      "status": "trained"
+    },
+    "standard": {
+      "file": "olivia-standard-qwen3-8b-q5_k_m.gguf",
+      "url": "hf://Lhh1sillho/OliviaPrompt-GGUF/olivia-standard-qwen3-8b-q5_k_m.gguf",
+      "sha256": "",
+      "size_hint": "≈5.6GB · Qwen3-8B Q5_K_M · 短+中+长全档",
+      "min_vram_gb": 6
+    },
+    "base": {
+      "file": "qwen3-4b-base-q4_k_m.gguf",
+      "url": "hf://Lhh1sillho/OliviaPrompt-GGUF/qwen3-4b-base-q4_k_m.gguf",
+      "sha256": "10bce28a8f593da8a16a1506cd908002f1276baee59632a0da4e4f89216f3fb5",
+      "size_hint": "≈2.5GB · 原始 Qwen3-4B Q4_K_M（基座对比用）",
+      "min_vram_gb": 0
+    }
+  }
+}

@@ -4,7 +4,7 @@ Weight files never live in the repo.  models/models.json points at a HF repo
 with resumable downloads + sha256 verification; this helper pushes them there.
 
     set HF_WRITE_TOKEN=hf_xxx
-    set HF_REPO=Lhh440/OliviaPrompt-GGUF
+    set HF_REPO=Lhh1sillho/OliviaPrompt-GGUF
     python scripts/upload_models.py --dir E:/OliviaPrompt/models
 
 Uploads every *.gguf found in --dir, plus sha256 manifest regeneration:
@@ -33,7 +33,7 @@ def sha256(path: Path) -> str:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dir", default=str(ROOT / "models"))
-    ap.add_argument("--repo", default="Lhh440/OliviaPrompt-GGUF")
+    ap.add_argument("--repo", default="Lhh1sillho/OliviaPrompt-GGUF")
     ap.add_argument("--manifest-only", action="store_true",
                     help="只把本地 sha256 写回 models/models.json，不上传")
     args = ap.parse_args(argv)
