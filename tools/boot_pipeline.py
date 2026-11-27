@@ -45,9 +45,10 @@ def log(msg):
         fh.write(line + '\n')
 
 
-def sh(args, timeout=None, check=False):
-    r = subprocess.run([str(a) for a in args], cwd=str(ROOT), timeout=timeout,
-                       capture_output=True, text=True, errors='replace')
+def sh(args, timeout=None, check=False, cwd=None):
+    r = subprocess.run([str(a) for a in args], cwd=str(cwd) if cwd else str(ROOT),
+                       timeout=timeout, capture_output=True, text=True,
+                       errors='replace')
     if r.stdout:
         with open(LOG, 'a', encoding='utf-8') as fh:
             fh.write(r.stdout[-3000:] + '\n')

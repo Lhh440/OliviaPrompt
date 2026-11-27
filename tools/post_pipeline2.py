@@ -29,7 +29,20 @@ def main():
         raise RuntimeError('merged-lite missing safetensors — rerun merge first')
 
     bp.log('step4: GGUF + quantize')
-    q4 = bp.gguf_steps(merged)
+    # idempotent: f16 may already exist from a previous phase-2 run
+    f16 = bp.M / 'olivia-lite-qwen3-4b-f16.gguf'
+    q4 = bp.M / 'olivia-lite-qwen3-4b-q4_k_m.gguf'
+    if not f16.exists():
+        bp.log('convert merged -> f16 GGUF')
+        bp.sh([bp.VPY, str(bp.T / 'convert_hf_to_gguf.py'), str(merged),
+               '--outfile', str(f16), '--outtype', 'f16'],
+              timeout=14400, check=True)
+    bp.log('quantize Q4_K_M')
+    bp.sh([str(bp.T / 'llama-quantize.exe'), str(f16), str(q4), 'Q4_K_M'],
+          timeout=7200, check=True)
+    f16.unlink()
+    if not q4.exists():
+        raise RuntimeError('quantize produced no Q4_K_M gguf')
 
     bp.log('step5: base GGUF')
     bq4 = bp.base_gguf_step()
