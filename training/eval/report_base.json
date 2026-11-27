@@ -1,0 +1,1034 @@
+{
+  "label": "base",
+  "endpoint": "http://127.0.0.1:8081/v1",
+  "model": "base",
+  "baseline_prompt": true,
+  "summary": {
+    "n": 50,
+    "json_ok_rate": 0.6,
+    "slot_acc": 0.5224489795918368,
+    "weighted_acc": 0.5518248175182482,
+    "consistency_error_rate": 0.06666666666666667,
+    "by_tier": {
+      "short": {
+        "n": 18,
+        "json_ok": 0.8333333333333334,
+        "slot_acc": 0.6222222222222222,
+        "weighted_acc": 0.6470588235294118,
+        "error_rate": 0.13333333333333333
+      },
+      "medium": {
+        "n": 17,
+        "json_ok": 0.5882352941176471,
+        "slot_acc": 0.47,
+        "weighted_acc": 0.49642857142857144,
+        "error_rate": 0.0
+      },
+      "long": {
+        "n": 15,
+        "json_ok": 0.3333333333333333,
+        "slot_acc": 0.45454545454545453,
+        "weighted_acc": 0.49333333333333335,
+        "error_rate": 0.0
+      }
+    },
+    "hard": {
+      "n": 5,
+      "json_ok": 0.8,
+      "slot_acc": 0.5416666666666666,
+      "weighted_acc": 0.5735294117647058,
+      "error_rate": 0.0
+    }
+  },
+  "rows": [
+    {
+      "id": "bench-000-elf_study_ledger_sit_0041-short",
+      "tier": "short",
+      "hard": true,
+      "json_ok": true,
+      "expect_n": 6,
+      "expect_hits": 4,
+      "weighted_hit": 12,
+      "weighted_sum": 17,
+      "errors": [],
+      "per_slot": {
+        "gender": true,
+        "hair_color": false,
+        "setting": true,
+        "pose_family": true,
+        "action": false,
+        "subject_count": true
+      },
+      "slots": {
+        "setting": "enchanted treehouse study",
+        "pose_family": "sit",
+        "light_dir": "left",
+        "medium": "anime illustration",
+        "hair_color": "crimson"
+      }
+    },
+    {
+      "id": "bench-001-waiting_hall_read_sit_0014-short",
+      "tier": "short",
+      "hard": true,
+      "json_ok": true,
+      "expect_n": 6,
+      "expect_hits": 3,
+      "weighted_hit": 9,
+      "weighted_sum": 17,
+      "errors": [],
+      "per_slot": {
+        "gender": true,
+        "hair_color": false,
+        "setting": false,
+        "pose_family": true,
+        "action": false,
+        "subject_count": true
+      },
+      "slots": {
+        "setting": "station waiting room",
+        "pose_family": "sit",
+        "light_dir": "left",
+        "medium": "anime illustration",
+        "hair_color": "chestnut"
+      }
+    },
+    {
+      "id": "bench-002-paper_mill_photograph_kneel_0011-short",
+      "tier": "short",
+      "hard": true,
+      "json_ok": true,
+      "expect_n": 6,
+      "expect_hits": 3,
+      "weighted_hit": 9,
+      "weighted_sum": 17,
+      "errors": [],
+      "per_slot": {
+        "gender": true,
+        "hair_color": false,
+        "setting": false,
+        "pose_family": true,
+        "action": false,
+        "subject_count": true
+      },
+      "slots": {
+        "setting": "paper mill",
+        "pose_family": "kneel",
+        "light_dir": "front",
+        "medium": "anime illustration",
+        "hair_color": "chestnut"
+      }
+    },
+    {
+      "id": "bench-003-typefoundry_paint_stand_0027-short",
+      "tier": "short",
+      "hard": true,
+      "json_ok": true,
+      "expect_n": 6,
+      "expect_hits": 3,
+      "weighted_hit": 9,
+      "weighted_sum": 17,
+      "errors": [],
+      "per_slot": {
+        "gender": true,
+        "hair_color": false,
+        "setting": false,
+        "pose_family": true,
+        "action": false,
+        "subject_count": true
+      },
+      "slots": {
+        "setting": "abandoned typesetting room",
+        "pose_family": "stand",
+        "light_dir": "left",
+        "medium": "anime illustration",
+        "hair_color": "silver"
+      }
+    },
+    {
+      "id": "bench-004-study_dawn_read_sit_0007-short",
+      "tier": "short",
+      "hard": true,
+      "json_ok": false,
+      "error": "slot: JSON 对象未闭合：'{\\n \"subject_count\": {\\n  \"value\": 1,\\n  \"src\": \"user\"\\n },\\n \"gender\": {\\n  \"value\": \"female\",\\n  \"src\": \"default\"\\n },\\n \"age\":'"
+    },
+    {
+      "id": "bench-005-lotus_boardwalk_read_crouch_0048-short",
+      "tier": "short",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 6,
+      "expect_hits": 5,
+      "weighted_hit": 14,
+      "weighted_sum": 17,
+      "errors": [],
+      "per_slot": {
+        "gender": true,
+        "hair_color": true,
+        "setting": true,
+        "pose_family": true,
+        "action": false,
+        "subject_count": true
+      },
+      "slots": {
+        "setting": "rain-soaked lotus pond path",
+        "pose_family": "crouch",
+        "light_dir": "left",
+        "medium": "anime illustration",
+        "hair_color": "silver"
+      }
+    },
+    {
+      "id": "bench-006-bamboo_path_read_crouch_0024-short",
+      "tier": "short",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 6,
+      "expect_hits": 4,
+      "weighted_hit": 12,
+      "weighted_sum": 17,
+      "errors": [
+        "[ERROR] E_CAM_POSE_LOW (cam_height): cam_height='seated eye level' 与姿势族 crouch 冲突：躺/蹲不适用坐姿视平线。"
+      ],
+      "per_slot": {
+        "gender": true,
+        "hair_color": false,
+        "setting": true,
+        "pose_family": true,
+        "action": false,
+        "subject_count": true
+      },
+      "slots": {
+        "setting": "rain-soaked bamboo forest path",
+        "pose_family": "crouch",
+        "light_dir": "left",
+        "medium": "anime illustration",
+        "hair_color": "white-gold"
+      }
+    },
+    {
+      "id": "bench-007-bridge_deck_read_stand_0015-short",
+      "tier": "short",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: JSON 对象未闭合：'{\\n \"subject_count\": {\\n  \"value\": 1,\\n  \"src\": \"default\"\\n },\\n \"gender\": {\\n  \"value\": \"female\",\\n  \"src\": \"default\"\\n },\\n \"ag'"
+    },
+    {
+      "id": "bench-008-winter_pond_tea_crouch_0044-short",
+      "tier": "short",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 6,
+      "expect_hits": 3,
+      "weighted_hit": 9,
+      "weighted_sum": 17,
+      "errors": [
+        "[ERROR] E_CAM_POSE_LOW (cam_height): cam_height='seated eye level' 与姿势族 crouch 冲突：躺/蹲不适用坐姿视平线。"
+      ],
+      "per_slot": {
+        "gender": true,
+        "hair_color": false,
+        "setting": false,
+        "pose_family": true,
+        "action": false,
+        "subject_count": true
+      },
+      "slots": {
+        "setting": "winter枯荷塘",
+        "pose_family": "crouch",
+        "light_dir": "left",
+        "medium": "anime illustration",
+        "hair_color": "gray-gold"
+      }
+    },
+    {
+      "id": "bench-009-paper_mill_clay_sit_0002-short",
+      "tier": "short",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 6,
+      "expect_hits": 4,
+      "weighted_hit": 12,
+      "weighted_sum": 17,
+      "errors": [],
+      "per_slot": {
+        "gender": true,
+        "hair_color": false,
+        "setting": true,
+        "pose_family": true,
+        "action": false,
+        "subject_count": true
+      },
+      "slots": {
+        "setting": "handmade paper workshop",
+        "pose_family": "sit",
+        "light_dir": "right",
+        "medium": "anime illustration",
+        "hair_color": "ivory"
+      }
+    },
+    {
+      "id": "bench-010-elf_apothecary_write_sit_0006-short",
+      "tier": "short",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 6,
+      "expect_hits": 5,
+      "weighted_hit": 15,
+      "weighted_sum": 17,
+      "errors": [],
+      "per_slot": {
+        "gender": true,
+        "hair_color": false,
+        "setting": true,
+        "pose_family": true,
+        "action": true,
+        "subject_count": true
+      },
+      "slots": {
+        "setting": "enchanting treehouse apothecary",
+        "pose_family": "sit",
+        "light_dir": "left",
+        "medium": "anime illustration",
+        "hair_color": "chestnut"
+      }
+    },
+    {
+      "id": "bench-011-tailor_shop_sew_lean_0043-short",
+      "tier": "short",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 6,
+      "expect_hits": 2,
+      "weighted_hit": 6,
+      "weighted_sum": 17,
+      "errors": [],
+      "per_slot": {
+        "gender": true,
+        "hair_color": false,
+        "setting": false,
+        "pose_family": false,
+        "action": false,
+        "subject_count": true
+      },
+      "slots": {
+        "setting": "retro sewing workshop",
+        "pose_family": "sit",
+        "light_dir": "right",
+        "medium": "anime illustration",
+        "hair_color": "blue-green"
+      }
+    },
+    {
+      "id": "bench-012-herbarium_tea_sit_0019-short",
+      "tier": "short",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 6,
+      "expect_hits": 4,
+      "weighted_hit": 12,
+      "weighted_sum": 17,
+      "errors": [],
+      "per_slot": {
+        "gender": true,
+        "hair_color": false,
+        "setting": true,
+        "pose_family": true,
+        "action": false,
+        "subject_count": true
+      },
+      "slots": {
+        "setting": "botanical specimen studio",
+        "pose_family": "sit",
+        "light_dir": "left",
+        "medium": "anime illustration",
+        "hair_color": "blue-green"
+      }
+    },
+    {
+      "id": "bench-013-bridge_deck_knit_crouch_0020-short",
+      "tier": "short",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 6,
+      "expect_hits": 5,
+      "weighted_hit": 14,
+      "weighted_sum": 17,
+      "errors": [],
+      "per_slot": {
+        "gender": true,
+        "hair_color": true,
+        "setting": true,
+        "pose_family": true,
+        "action": false,
+        "subject_count": true
+      },
+      "slots": {
+        "setting": "bridge maintenance site",
+        "pose_family": "crouch",
+        "light_dir": "right",
+        "medium": "anime illustration",
+        "hair_color": "lavender"
+      }
+    },
+    {
+      "id": "bench-014-bamboo_path_wipe_stand_0026-short",
+      "tier": "short",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 6,
+      "expect_hits": 4,
+      "weighted_hit": 12,
+      "weighted_sum": 17,
+      "errors": [],
+      "per_slot": {
+        "gender": true,
+        "hair_color": false,
+        "setting": true,
+        "pose_family": true,
+        "action": false,
+        "subject_count": true
+      },
+      "slots": {
+        "setting": "rainy bamboo forest path",
+        "pose_family": "stand",
+        "light_dir": "left",
+        "medium": "anime illustration",
+        "hair_color": "dark red"
+      }
+    },
+    {
+      "id": "bench-015-sea_cliff_read_sit_0003-short",
+      "tier": "short",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 6,
+      "expect_hits": 5,
+      "weighted_hit": 14,
+      "weighted_sum": 17,
+      "errors": [],
+      "per_slot": {
+        "gender": true,
+        "hair_color": true,
+        "setting": true,
+        "pose_family": true,
+        "action": false,
+        "subject_count": true
+      },
+      "slots": {
+        "setting": "seaside cliff at sunset",
+        "pose_family": "sit",
+        "light_dir": "right",
+        "medium": "anime illustration",
+        "hair_color": "copper"
+      }
+    },
+    {
+      "id": "bench-016-salt_fields_repair_watch_stand_0039-short",
+      "tier": "short",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: JSON 对象未闭合：'{\\n \"subject_count\": {\\n  \"value\": 1,\\n  \"src\": \"user\"\\n },\\n \"gender\": {\\n  \"value\": \"female\",\\n  \"src\": \"default\"\\n },\\n \"age\":'"
+    },
+    {
+      "id": "bench-017-waiting_hall_read_lean_0035-short",
+      "tier": "short",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 6,
+      "expect_hits": 2,
+      "weighted_hit": 6,
+      "weighted_sum": 17,
+      "errors": [],
+      "per_slot": {
+        "gender": true,
+        "hair_color": false,
+        "setting": false,
+        "pose_family": false,
+        "action": false,
+        "subject_count": true
+      },
+      "slots": {
+        "setting": "station concourse",
+        "pose_family": "sit",
+        "light_dir": "front",
+        "medium": "anime illustration",
+        "hair_color": "golden"
+      }
+    },
+    {
+      "id": "bench-018-alpine_meadow_sew_crouch_0031-medium",
+      "tier": "medium",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: 模型返回为空"
+    },
+    {
+      "id": "bench-019-elf_study_knit_lean_0037-medium",
+      "tier": "medium",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 10,
+      "expect_hits": 5,
+      "weighted_hit": 15,
+      "weighted_sum": 28,
+      "errors": [],
+      "per_slot": {
+        "light_dir": true,
+        "gender": true,
+        "setting": true,
+        "light_time": false,
+        "hair_color": false,
+        "pose_family": false,
+        "aspect": false,
+        "action": false,
+        "subject_count": true,
+        "cam_height": true
+      },
+      "slots": {
+        "setting": "enchanted treehouse study",
+        "pose_family": "stand",
+        "light_dir": "top",
+        "medium": "anime illustration",
+        "hair_color": "ochre"
+      }
+    },
+    {
+      "id": "bench-020-old_factory_loft_photograph_lean_0028-medium",
+      "tier": "medium",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 10,
+      "expect_hits": 3,
+      "weighted_hit": 9,
+      "weighted_sum": 28,
+      "errors": [],
+      "per_slot": {
+        "light_dir": true,
+        "gender": true,
+        "setting": false,
+        "light_time": false,
+        "hair_color": false,
+        "pose_family": false,
+        "aspect": false,
+        "action": false,
+        "subject_count": true,
+        "cam_height": false
+      },
+      "slots": {
+        "setting": "industrial厂房改造 space",
+        "pose_family": "stand",
+        "light_dir": "top",
+        "medium": "anime illustration",
+        "hair_color": "gray-gold"
+      }
+    },
+    {
+      "id": "bench-021-barber_pole_read_lean_0022-medium",
+      "tier": "medium",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 10,
+      "expect_hits": 4,
+      "weighted_hit": 12,
+      "weighted_sum": 28,
+      "errors": [],
+      "per_slot": {
+        "light_dir": true,
+        "gender": true,
+        "setting": false,
+        "light_time": false,
+        "hair_color": false,
+        "pose_family": false,
+        "aspect": false,
+        "action": false,
+        "subject_count": true,
+        "cam_height": true
+      },
+      "slots": {
+        "setting": "old-fashioned barber shop",
+        "pose_family": "stand",
+        "light_dir": "right",
+        "medium": "anime illustration",
+        "hair_color": "wine-red"
+      }
+    },
+    {
+      "id": "bench-022-photo_studio_ledger_crouch_0023-medium",
+      "tier": "medium",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 10,
+      "expect_hits": 5,
+      "weighted_hit": 15,
+      "weighted_sum": 28,
+      "errors": [],
+      "per_slot": {
+        "light_dir": true,
+        "gender": true,
+        "setting": true,
+        "light_time": false,
+        "hair_color": false,
+        "pose_family": true,
+        "aspect": false,
+        "action": false,
+        "subject_count": true,
+        "cam_height": false
+      },
+      "slots": {
+        "setting": "old photo studio backdrop",
+        "pose_family": "crouch",
+        "light_dir": "top",
+        "medium": "anime illustration",
+        "hair_color": "copper-red"
+      }
+    },
+    {
+      "id": "bench-023-old_factory_loft_tighten_sit_0009-medium",
+      "tier": "medium",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: JSON 对象未闭合：'{\\n \"subject_count\": {\\n  \"value\": 1,\\n  \"src\": \"default\"\\n },\\n \"gender\": {\\n  \"value\": \"female\",\\n  \"src\": \"default\"\\n },\\n \"ha'"
+    },
+    {
+      "id": "bench-024-maple_creek_tea_stand_0049-medium",
+      "tier": "medium",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 10,
+      "expect_hits": 3,
+      "weighted_hit": 9,
+      "weighted_sum": 28,
+      "errors": [],
+      "per_slot": {
+        "light_dir": false,
+        "gender": true,
+        "setting": false,
+        "light_time": false,
+        "hair_color": false,
+        "pose_family": true,
+        "aspect": false,
+        "action": false,
+        "subject_count": true,
+        "cam_height": false
+      },
+      "slots": {
+        "setting": "autumn maple forest by a stream",
+        "pose_family": "stand",
+        "light_dir": "right",
+        "medium": "anime illustration",
+        "hair_color": "charcoal"
+      }
+    },
+    {
+      "id": "bench-025-barber_pole_map_lean_0042-medium",
+      "tier": "medium",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 10,
+      "expect_hits": 4,
+      "weighted_hit": 12,
+      "weighted_sum": 28,
+      "errors": [],
+      "per_slot": {
+        "light_dir": true,
+        "gender": true,
+        "setting": false,
+        "light_time": false,
+        "hair_color": false,
+        "pose_family": false,
+        "aspect": false,
+        "action": false,
+        "subject_count": true,
+        "cam_height": true
+      },
+      "slots": {
+        "setting": "old-fashioned barber shop",
+        "pose_family": "stand",
+        "light_dir": "front",
+        "medium": "anime illustration",
+        "hair_color": "red"
+      }
+    },
+    {
+      "id": "bench-026-art_studio_sew_stand_0013-medium",
+      "tier": "medium",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 10,
+      "expect_hits": 6,
+      "weighted_hit": 17,
+      "weighted_sum": 28,
+      "errors": [],
+      "per_slot": {
+        "light_dir": true,
+        "gender": true,
+        "setting": false,
+        "light_time": false,
+        "hair_color": true,
+        "pose_family": true,
+        "aspect": true,
+        "action": false,
+        "subject_count": true,
+        "cam_height": false
+      },
+      "slots": {
+        "setting": "studio sketching corner",
+        "pose_family": "stand",
+        "light_dir": "top",
+        "medium": "anime illustration",
+        "hair_color": "black"
+      }
+    },
+    {
+      "id": "bench-027-elf_study_map_sit_0025-medium",
+      "tier": "medium",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: slot 'light_dir' must be one of ('left', 'right', 'front', 'top', 'back-right', 'back-left'), got 'left back'"
+    },
+    {
+      "id": "bench-028-barber_pole_map_stand_0038-medium",
+      "tier": "medium",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: JSON 对象未闭合：'{\\n \"subject_count\": {\\n  \"value\": 1,\\n  \"src\": \"default\"\\n },\\n \"gender\": {\\n  \"value\": \"female\",\\n  \"src\": \"user\"\\n },\\n \"age\":'"
+    },
+    {
+      "id": "bench-029-desert_oasis_photograph_stand_0029-medium",
+      "tier": "medium",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: JSON 对象未闭合：'{\\n \"subject_count\": {\\n  \"value\": 1,\\n  \"src\": \"user\"\\n },\\n \"gender\": {\\n  \"value\": \"female\",\\n  \"src\": \"user\"\\n },\\n \"age\": {\\n'"
+    },
+    {
+      "id": "bench-030-wasteland_garage_knit_lean_0045-medium",
+      "tier": "medium",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: slot 'light_dir' must be one of ('left', 'right', 'front', 'top', 'back-right', 'back-left'), got 'right back'"
+    },
+    {
+      "id": "bench-031-nordic_kitchen_pour_sit_0005-medium",
+      "tier": "medium",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 10,
+      "expect_hits": 6,
+      "weighted_hit": 18,
+      "weighted_sum": 28,
+      "errors": [],
+      "per_slot": {
+        "light_dir": true,
+        "gender": true,
+        "setting": false,
+        "light_time": false,
+        "hair_color": false,
+        "pose_family": true,
+        "aspect": false,
+        "action": true,
+        "subject_count": true,
+        "cam_height": true
+      },
+      "slots": {
+        "setting": "norwegian kitchen",
+        "pose_family": "sit",
+        "light_dir": "front",
+        "medium": "anime illustration",
+        "hair_color": "silver"
+      }
+    },
+    {
+      "id": "bench-032-tailor_shop_ledger_stand_0004-medium",
+      "tier": "medium",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 10,
+      "expect_hits": 5,
+      "weighted_hit": 15,
+      "weighted_sum": 28,
+      "errors": [],
+      "per_slot": {
+        "light_dir": true,
+        "gender": true,
+        "setting": false,
+        "light_time": false,
+        "hair_color": false,
+        "pose_family": true,
+        "aspect": false,
+        "action": false,
+        "subject_count": true,
+        "cam_height": true
+      },
+      "slots": {
+        "setting": "retro sewing workshop",
+        "pose_family": "stand",
+        "light_dir": "left",
+        "medium": "anime illustration",
+        "hair_color": "ivory"
+      }
+    },
+    {
+      "id": "bench-033-herbarium_water_sit_0001-medium",
+      "tier": "medium",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 10,
+      "expect_hits": 6,
+      "weighted_hit": 17,
+      "weighted_sum": 28,
+      "errors": [],
+      "per_slot": {
+        "light_dir": true,
+        "gender": true,
+        "setting": false,
+        "light_time": false,
+        "hair_color": true,
+        "pose_family": true,
+        "aspect": false,
+        "action": false,
+        "subject_count": true,
+        "cam_height": true
+      },
+      "slots": {
+        "setting": "botanical studio",
+        "pose_family": "sit",
+        "light_dir": "top",
+        "medium": "anime illustration",
+        "hair_color": "black"
+      }
+    },
+    {
+      "id": "bench-034-dry_dock_wipe_crouch_0046-medium",
+      "tier": "medium",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: JSON 对象未闭合：'{\\n \"subject_count\": {\\n  \"value\": 1,\\n  \"src\": \"default\"\\n },\\n \"gender\": {\\n  \"value\": \"female\",\\n  \"src\": \"default\"\\n },\\n \"ha'"
+    },
+    {
+      "id": "bench-035-cyber_noodles_tea_sit_0032-long",
+      "tier": "long",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 11,
+      "expect_hits": 6,
+      "weighted_hit": 18,
+      "weighted_sum": 30,
+      "errors": [],
+      "per_slot": {
+        "light_dir": false,
+        "gender": true,
+        "setting": true,
+        "light_time": false,
+        "outfit_main": false,
+        "hair_color": false,
+        "pose_family": true,
+        "aspect": true,
+        "action": false,
+        "subject_count": true,
+        "cam_height": true
+      },
+      "slots": {
+        "setting": "cyberpunk food stall",
+        "pose_family": "sit",
+        "light_dir": "front",
+        "medium": "anime illustration",
+        "hair_color": "chestnut"
+      }
+    },
+    {
+      "id": "bench-036-rooftop_loft_read_crouch_0010-long",
+      "tier": "long",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: 模型返回为空"
+    },
+    {
+      "id": "bench-037-cloud_temple_wipe_sit_0018-long",
+      "tier": "long",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 11,
+      "expect_hits": 4,
+      "weighted_hit": 12,
+      "weighted_sum": 30,
+      "errors": [],
+      "per_slot": {
+        "light_dir": false,
+        "gender": true,
+        "setting": false,
+        "light_time": false,
+        "outfit_main": false,
+        "hair_color": false,
+        "pose_family": true,
+        "aspect": false,
+        "action": false,
+        "subject_count": true,
+        "cam_height": true
+      },
+      "slots": {
+        "setting": "cloud-dwelling temple corridor",
+        "pose_family": "sit",
+        "light_dir": "left",
+        "medium": "anime illustration",
+        "hair_color": "chestnut"
+      }
+    },
+    {
+      "id": "bench-038-alchemy_lab_paint_lean_0030-long",
+      "tier": "long",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: JSON 对象未闭合：'{\\n \"subject_count\": {\\n  \"value\": 1,\\n  \"src\": \"user\"\\n },\\n \"gender\": {\\n  \"value\": \"female\",\\n  \"src\": \"user\"\\n },\\n \"age\": {\\n'"
+    },
+    {
+      "id": "bench-039-snow_camp_paint_crouch_0047-long",
+      "tier": "long",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: JSON 对象未闭合：'{\\n \"subject_count\": {\\n  \"value\": 1,\\n  \"src\": \"default\"\\n },\\n \"gender\": {\\n  \"value\": \"female\",\\n  \"src\": \"default\"\\n },\\n \"ag'"
+    },
+    {
+      "id": "bench-040-cloud_temple_tea_sit_0021-long",
+      "tier": "long",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: 模型返回为空"
+    },
+    {
+      "id": "bench-041-abandoned_platform_smoke_sit_0016-long",
+      "tier": "long",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: slot 'visibility' expects exactly 3 items, got 2"
+    },
+    {
+      "id": "bench-042-steampunk_gondola_map_stand_0040-long",
+      "tier": "long",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 11,
+      "expect_hits": 5,
+      "weighted_hit": 15,
+      "weighted_sum": 30,
+      "errors": [],
+      "per_slot": {
+        "light_dir": false,
+        "gender": true,
+        "setting": false,
+        "light_time": false,
+        "outfit_main": false,
+        "hair_color": false,
+        "pose_family": true,
+        "aspect": true,
+        "action": false,
+        "subject_count": true,
+        "cam_height": true
+      },
+      "slots": {
+        "setting": "steam-punk airship cockpit",
+        "pose_family": "stand",
+        "light_dir": "left",
+        "medium": "anime illustration",
+        "hair_color": "white"
+      }
+    },
+    {
+      "id": "bench-043-tailor_shop_ledger_lean_0017-long",
+      "tier": "long",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: JSON 对象未闭合：'{\\n \"subject_count\": {\\n  \"value\": 1,\\n  \"src\": \"default\"\\n },\\n \"gender\": {\\n  \"value\": \"female\",\\n  \"src\": \"user\"\\n },\\n \"age\":'"
+    },
+    {
+      "id": "bench-044-tea_room_read_kneel_0036-long",
+      "tier": "long",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 11,
+      "expect_hits": 7,
+      "weighted_hit": 20,
+      "weighted_sum": 30,
+      "errors": [],
+      "per_slot": {
+        "light_dir": true,
+        "gender": true,
+        "setting": true,
+        "light_time": false,
+        "outfit_main": true,
+        "hair_color": false,
+        "pose_family": true,
+        "aspect": true,
+        "action": false,
+        "subject_count": true,
+        "cam_height": false
+      },
+      "slots": {
+        "setting": "Japanese tea room",
+        "pose_family": "kneel",
+        "light_dir": "left",
+        "medium": "anime illustration",
+        "hair_color": "violet"
+      }
+    },
+    {
+      "id": "bench-045-deep_temple_wipe_lean_0033-long",
+      "tier": "long",
+      "hard": false,
+      "json_ok": true,
+      "expect_n": 11,
+      "expect_hits": 3,
+      "weighted_hit": 9,
+      "weighted_sum": 30,
+      "errors": [],
+      "per_slot": {
+        "light_dir": false,
+        "gender": true,
+        "setting": true,
+        "light_time": false,
+        "outfit_main": false,
+        "hair_color": false,
+        "pose_family": false,
+        "aspect": false,
+        "action": false,
+        "subject_count": true,
+        "cam_height": false
+      },
+      "slots": {
+        "setting": "deep-sea temple entrance",
+        "pose_family": "stand",
+        "light_dir": "front",
+        "medium": "anime illustration",
+        "hair_color": "tan"
+      }
+    },
+    {
+      "id": "bench-046-salt_fields_read_crouch_0012-long",
+      "tier": "long",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: slot 'visibility' expects exactly 3 items, got 2"
+    },
+    {
+      "id": "bench-047-ink_workshop_repair_watch_lean_0008-long",
+      "tier": "long",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: JSON 对象未闭合：'{\\n \"subject_count\": {\\n  \"value\": 1,\\n  \"src\": \"user\"\\n },\\n \"gender\": {\\n  \"value\": \"female\",\\n  \"src\": \"user\"\\n },\\n \"age\": {\\n'"
+    },
+    {
+      "id": "bench-048-underpass_wall_read_stand_0000-long",
+      "tier": "long",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: slot 'visibility' expects exactly 3 items, got 2"
+    },
+    {
+      "id": "bench-049-alpine_meadow_sketch_sit_0034-long",
+      "tier": "long",
+      "hard": false,
+      "json_ok": false,
+      "error": "slot: JSON 对象未闭合：'{\\n \"subject_count\": {\\n  \"value\": 1,\\n  \"src\": \"user\"\\n },\\n \"gender\": {\\n  \"value\": \"female\",\\n  \"src\": \"user\"\\n },\\n \"age\": {\\n'"
+    }
+  ]
+}
