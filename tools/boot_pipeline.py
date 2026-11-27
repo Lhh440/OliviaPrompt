@@ -216,7 +216,9 @@ def serve_and_eval(gguf, label, baseline):
     for _ in range(60):
         time.sleep(5)
         r = sh(['curl', '-s', '-m', '3', 'http://127.0.0.1:8081/health'], 15)
-        if 'true' in (r.stdout or ''):
+        # llama-server returns {"status":"ok"} when healthy (older builds
+        # answered {"status":true}; accept either)
+        if 'true' in (r.stdout or '') or '"ok"' in (r.stdout or ''):
             up = True
             break
     if not up:
